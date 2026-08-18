@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f4f4f5;
+    --bg-tertiary: #e4e4e7;
+    --border-color: #e4e4e7;
+    --border-accent: #09090b;
+    --text-primary: #09090b;
+    --text-secondary: #52525b;
+    --text-muted: #71717a;
+    --accent: #09090b;
+    --accent-hover: #18181b;
+    --accent-light: #f4f4f5;
+    --card-bg: #ffffff;
+    --card-hover: #fafafa;
+    --badge-bg: #f4f4f5;
+    --badge-text: #18181b;
+    --code-bg: #09090b;
+    --code-text: #fafafa;
+    --cursor-glow: rgba(0, 0, 0, 0.04);
+  }
+
+  .dark {
+    --bg-primary: #050505;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #18181b;
+    --border-color: #27272a;
+    --border-accent: #ffffff;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --accent: #ffffff;
+    --accent-hover: #e4e4e7;
+    --accent-light: #18181b;
+    --card-bg: #0a0a0a;
+    --card-hover: #121212;
+    --badge-bg: #18181b;
+    --badge-text: #f4f4f5;
+    --code-bg: #000000;
+    --code-text: #ffffff;
+    --cursor-glow: rgba(255, 255, 255, 0.07);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Monospace font utility for code/tech elements */
+.font-mono-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Hairline borders & minimalist cards */
+.border-flat {
+  border: 1px solid var(--border-color);
+}
+
+.border-accent-flat {
+  border: 1px solid var(--border-accent);
+}
+
+.bg-surface {
+  background-color: var(--card-bg);
+}
+
+.bg-surface-subtle {
+  background-color: var(--bg-secondary);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
