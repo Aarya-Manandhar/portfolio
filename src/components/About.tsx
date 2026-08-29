@@ -84,7 +84,7 @@ export const About: React.FC = () => {
         </div>
 
         <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-          Engineered for correctness, simplicity, and performance.
+          I find the constraint everyone else is working around — then remove it.
         </h2>
 
         <p className="text-secondary text-base leading-relaxed">
