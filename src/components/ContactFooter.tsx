@@ -38,7 +38,7 @@ export const ContactFooter: React.FC = () => {
             </p>
 
             {/* Response Time Guarantee Note */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface border-flat text-xs font-medium text-muted">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface text-xs font-medium text-muted">
               <Clock className="w-3.5 h-3.5 text-accent" />
               <span>Response pledge: {PERSONAL_INFO.responsePledge}</span>
             </div>
@@ -84,7 +84,7 @@ export const ContactFooter: React.FC = () => {
                 href={PERSONAL_INFO.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3.5 rounded-xl bg-surface border-flat text-primary font-medium text-xs hover:border-accent hover:text-accent transition-colors flex items-center justify-between"
+                className="p-3.5 rounded-xl bg-surface text-primary font-medium text-xs hover:text-accent transition-colors flex items-center justify-between"
               >
                 <div className="flex items-center gap-2">
                   <GithubIcon className="w-4 h-4 text-muted" />
@@ -97,7 +97,7 @@ export const ContactFooter: React.FC = () => {
                 href={PERSONAL_INFO.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3.5 rounded-xl bg-surface border-flat text-primary font-medium text-xs hover:border-accent hover:text-accent transition-colors flex items-center justify-between"
+                className="p-3.5 rounded-xl bg-surface text-primary font-medium text-xs hover:text-accent transition-colors flex items-center justify-between"
               >
                 <div className="flex items-center gap-2">
                   <LinkedinIcon className="w-4 h-4 text-muted" />
@@ -114,7 +114,7 @@ export const ContactFooter: React.FC = () => {
                 e.preventDefault();
                 alert("Resume download triggered! (Replace link with actual PDF path when deploying)");
               }}
-              className="p-3.5 rounded-xl bg-surface border-flat text-muted font-medium text-xs hover:text-primary hover:border-accent transition-colors flex items-center justify-center gap-2"
+              className="p-3.5 rounded-xl bg-surface text-muted font-medium text-xs hover:text-primary transition-colors flex items-center justify-center gap-2"
             >
               <FileDown className="w-4 h-4 text-accent" />
               <span>Download Full CV / Resume (PDF)</span>
@@ -123,7 +123,7 @@ export const ContactFooter: React.FC = () => {
         </div>
 
         {/* Bottom Footer Credits */}
-        <div className="pt-8 border-t border-flat flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
           <div>
             © {currentYear} {PERSONAL_INFO.name}. All rights reserved.
           </div>

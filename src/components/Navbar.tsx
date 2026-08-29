@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Sun, Moon, Command } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
@@ -15,6 +15,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
+  const isClickScrolling = useRef(false);
+  const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const navLinks = [
     { id: 'about', label: 'About' },
@@ -30,6 +32,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
+      if (isClickScrolling.current) return;
+
       const sectionIds = ['hero', ...navLinks.map((l) => l.id)];
       const scrollPosition = window.scrollY + 200;
 
@@ -42,24 +46,40 @@ export const Navbar: React.FC<NavbarProps> = ({
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    isClickScrolling.current = true;
+
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+
+    scrollTimeout.current = setTimeout(() => {
+      isClickScrolling.current = false;
+    }, 800);
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-surface/90 backdrop-blur-md border-b border-flat py-3'
+          ? 'bg-surface/85 backdrop-blur-md border-b border-flat py-3 shadow-xs'
           : 'bg-transparent py-5'
       }`}
+      style={{
+        backgroundColor: scrolled
+          ? 'color-mix(in srgb, var(--card-bg) 85%, transparent)'
+          : 'transparent',
+      }}
     >
       <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Wordmark Logo */}
@@ -74,17 +94,17 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Center Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-surface-subtle border-flat p-1 rounded-xl">
+        <nav className="hidden md:flex items-center gap-1 bg-surface-subtle p-1 rounded-xl">
           {navLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors duration-150 cursor-pointer ${
                   isActive
-                    ? 'bg-surface text-primary font-semibold border-flat shadow-xs'
-                    : 'text-muted hover:text-primary hover:bg-surface/50'
+                    ? 'bg-surface text-primary border-flat shadow-xs'
+                    : 'border-transparent text-muted hover:text-primary hover:bg-surface/60'
                 }`}
               >
                 {link.label}
@@ -104,30 +124,30 @@ export const Navbar: React.FC<NavbarProps> = ({
                 el.focus();
               }
             }}
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium border-flat bg-surface-subtle text-muted hover:text-primary hover:border-accent rounded-lg transition-colors cursor-pointer"
+            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium bg-surface-subtle text-muted hover:text-primary rounded-lg transition-colors cursor-pointer"
             title="Press 'A' anywhere to jump to SpecSense AI Analyzer"
           >
             <span className="text-[11px]">Analyze</span>
-            <kbd className="text-[10px] px-1.5 py-0.2 rounded-sm bg-surface border-flat font-mono-code text-primary font-bold">
+            <kbd className="text-[10px] px-1.5 py-0.2 rounded-sm bg-surface font-mono-code text-primary font-bold">
               A
             </kbd>
           </button>
 
           <button
             onClick={onOpenCommandPalette}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium border-flat bg-surface-subtle text-muted hover:text-primary hover:border-accent rounded-lg transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-surface-subtle text-muted hover:text-primary rounded-lg transition-colors cursor-pointer"
             title="Open Command Palette (⌘K)"
           >
             <Command className="w-3.5 h-3.5 text-primary" />
             <span className="hidden sm:inline">Search</span>
-            <kbd className="hidden lg:inline-block text-[10px] px-1.5 py-0.2 rounded-sm bg-surface border-flat font-mono-code text-muted">
+            <kbd className="hidden lg:inline-block text-[10px] px-1.5 py-0.2 rounded-sm bg-surface font-mono-code text-muted">
               ⌘K
             </kbd>
           </button>
 
           <button
             onClick={onToggleDarkMode}
-            className="p-2 border-flat bg-surface-subtle text-muted hover:text-primary hover:border-accent rounded-lg transition-colors cursor-pointer"
+            className="p-2 bg-surface-subtle text-muted hover:text-primary rounded-lg transition-colors cursor-pointer"
             aria-label="Toggle Dark/Light Mode"
           >
             {darkMode ? <Sun className="w-4 h-4 text-amber-300" /> : <Moon className="w-4 h-4 text-slate-800" />}

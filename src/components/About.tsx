@@ -111,7 +111,7 @@ export const About: React.FC = () => {
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {/* Stat 1: Public Repos */}
-          <div className="p-4 rounded-xl bg-surface border-flat space-y-2 hover:border-accent transition-colors">
+          <div className="p-4 rounded-xl bg-surface space-y-2 hover:bg-surface-subtle transition-colors">
             <div className="flex items-center justify-between text-muted">
               <span className="text-xs font-medium">Public Repos</span>
               <GitBranch className="w-4 h-4 text-accent" />
@@ -125,7 +125,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Stat 2: Top Language */}
-          <div className="p-4 rounded-xl bg-surface border-flat space-y-2 hover:border-accent transition-colors">
+          <div className="p-4 rounded-xl bg-surface space-y-2 hover:bg-surface-subtle transition-colors">
             <div className="flex items-center justify-between text-muted">
               <span className="text-xs font-medium">Top Language</span>
               <Code className="w-4 h-4 text-accent" />
@@ -139,7 +139,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Stat 3: Latest Activity */}
-          <div className="p-4 rounded-xl bg-surface border-flat space-y-2 hover:border-accent transition-colors">
+          <div className="p-4 rounded-xl bg-surface space-y-2 hover:bg-surface-subtle transition-colors">
             <div className="flex items-center justify-between text-muted">
               <span className="text-xs font-medium">Latest Activity</span>
               <Calendar className="w-4 h-4 text-accent" />
@@ -153,7 +153,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Stat 4: Stargazers / Contributions */}
-          <div className="p-4 rounded-xl bg-surface border-flat space-y-2 hover:border-accent transition-colors">
+          <div className="p-4 rounded-xl bg-surface space-y-2 hover:bg-surface-subtle transition-colors">
             <div className="flex items-center justify-between text-muted">
               <span className="text-xs font-medium">GitHub Stars</span>
               <Star className="w-4 h-4 text-accent" />

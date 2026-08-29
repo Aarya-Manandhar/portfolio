@@ -27,7 +27,7 @@ export const CaseStudy: React.FC = () => {
         {/* Left Column: 3-Part Engineering Breakdown */}
         <div className="lg:col-span-6 space-y-6">
           {/* Part 1: Problem */}
-          <div className="p-5 rounded-xl bg-surface border-flat space-y-2 hover:border-accent transition-colors">
+          <div className="p-5 rounded-xl bg-surface space-y-2 transition-colors">
             <div className="flex items-center gap-2 text-sm font-bold text-primary">
               <span className="w-6 h-6 rounded-md bg-accent/10 text-accent flex items-center justify-center text-xs">
                 1
@@ -40,7 +40,7 @@ export const CaseStudy: React.FC = () => {
           </div>
 
           {/* Part 2: Key Trade-off */}
-          <div className="p-5 rounded-xl bg-surface border-flat space-y-2 border-l-4 border-l-accent hover:border-accent transition-colors">
+          <div className="p-5 rounded-xl bg-surface space-y-2 border-l-4 border-l-accent transition-colors">
             <div className="flex items-center gap-2 text-sm font-bold text-primary">
               <span className="w-6 h-6 rounded-md bg-accent text-white flex items-center justify-center text-xs font-bold">
                 2
@@ -55,7 +55,7 @@ export const CaseStudy: React.FC = () => {
           </div>
 
           {/* Part 3: Hindsight */}
-          <div className="p-5 rounded-xl bg-surface border-flat space-y-2 hover:border-accent transition-colors">
+          <div className="p-5 rounded-xl bg-surface space-y-2 transition-colors">
             <div className="flex items-center gap-2 text-sm font-bold text-primary">
               <span className="w-6 h-6 rounded-md bg-accent/10 text-accent flex items-center justify-center text-xs">
                 3
@@ -69,7 +69,7 @@ export const CaseStudy: React.FC = () => {
         </div>
 
         {/* Right Column: Interactive System Architecture Diagram */}
-        <div className="lg:col-span-6 rounded-2xl bg-surface border-flat p-5 space-y-5">
+        <div className="lg:col-span-6 rounded-2xl bg-surface p-5 space-y-5">
           <div className="flex items-center justify-between border-b border-flat pb-3">
             <div className="flex items-center gap-2 text-xs font-bold text-primary">
               <Layers className="w-4 h-4 text-accent" />
@@ -77,14 +77,14 @@ export const CaseStudy: React.FC = () => {
             </div>
 
             {/* Mode Switcher Tabs */}
-            <div className="flex bg-surface-subtle border-flat p-1 rounded-lg">
+            <div className="flex bg-surface-subtle p-1 rounded-lg">
               {(['architecture', 'escrow', 'kyc'] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setDiagramMode(mode)}
                   className={`px-2.5 py-1 rounded-md text-[11px] font-medium capitalize transition-all cursor-pointer ${
                     diagramMode === mode
-                      ? 'bg-surface text-accent font-semibold border-flat shadow-xs'
+                      ? 'bg-surface text-accent font-semibold shadow-xs'
                       : 'text-muted hover:text-primary'
                   }`}
                 >
@@ -95,17 +95,17 @@ export const CaseStudy: React.FC = () => {
           </div>
 
           {/* Diagram Canvas */}
-          <div className="p-4 rounded-xl bg-surface-subtle border-flat min-h-[300px] flex flex-col justify-between space-y-4">
+          <div className="p-4 rounded-xl bg-surface-subtle min-h-[300px] flex flex-col justify-between space-y-4">
             
             {/* Mode 1: Main System Architecture */}
             {diagramMode === 'architecture' && (
               <div className="space-y-4 animate-in fade-in duration-200">
                 <div className="text-xs font-semibold text-muted flex items-center justify-between">
                   <span>CLIENT / FRONTEND</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-sm bg-surface border-flat">HTML5 / JS / Tailwind</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-sm bg-surface">HTML5 / JS / Tailwind</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-surface border-flat flex items-center justify-between gap-3 text-xs font-medium text-primary">
+                <div className="p-3 rounded-lg bg-surface flex items-center justify-between gap-3 text-xs font-medium text-primary">
                   <div className="flex items-center gap-2">
                     <Smartphone className="w-4 h-4 text-accent" />
                     <span>Client / Freelancer Portal</span>
@@ -116,7 +116,7 @@ export const CaseStudy: React.FC = () => {
 
                 <div className="text-xs font-semibold text-muted flex items-center justify-between">
                   <span>BACKEND API & AUTH</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-sm bg-surface border-flat">PHP / RBAC Engine</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-sm bg-surface">PHP / RBAC Engine</span>
                 </div>
 
                 <div className="p-3 rounded-lg bg-surface border-accent-flat flex items-center justify-between gap-3 text-xs font-medium text-primary">
@@ -132,10 +132,10 @@ export const CaseStudy: React.FC = () => {
 
                 <div className="text-xs font-semibold text-muted flex items-center justify-between">
                   <span>DATA & SECURITY STORE</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-sm bg-surface border-flat">MySQL Relational DB</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-sm bg-surface">MySQL Relational DB</span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-surface border-flat flex items-center justify-between gap-3 text-xs font-medium text-primary">
+                <div className="p-3 rounded-lg bg-surface flex items-center justify-between gap-3 text-xs font-medium text-primary">
                   <div className="flex items-center gap-2">
                     <Database className="w-4 h-4 text-accent" />
                     <span>MySQL Database (Encrypted Audit Logs)</span>
@@ -151,26 +151,26 @@ export const CaseStudy: React.FC = () => {
                 <div className="text-xs font-semibold text-muted">ESCROW STATE MACHINE FLOW</div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <div className="p-3 rounded-lg bg-surface border-flat text-center space-y-1">
+                  <div className="p-3 rounded-lg bg-surface text-center space-y-1">
                     <DollarSign className="w-4 h-4 text-amber-500 mx-auto" />
                     <div className="text-xs font-bold text-primary">1. Fund Lock</div>
                     <p className="text-[10px] text-muted">Client deposits gig value into escrow ledger.</p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-surface border-flat text-center space-y-1">
+                  <div className="p-3 rounded-lg bg-surface text-center space-y-1">
                     <ShieldCheck className="w-4 h-4 text-accent mx-auto" />
                     <div className="text-xs font-bold text-primary">2. Deliverable Check</div>
                     <p className="text-[10px] text-muted">Student submits code; client reviews diff.</p>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-surface border-flat text-center space-y-1">
+                  <div className="p-3 rounded-lg bg-surface text-center space-y-1">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 mx-auto" />
                     <div className="text-xs font-bold text-primary">3. Auto Release</div>
                     <p className="text-[10px] text-muted">Funds transferred to student wallet/account.</p>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-surface border-flat text-xs text-muted leading-relaxed">
+                <div className="p-3 rounded-lg bg-surface text-xs text-muted leading-relaxed">
                   <strong className="font-semibold text-primary">Fail-safe:</strong> If deliverable dispute occurs, dispute arbitration locks state and triggers manual audit review.
                 </div>
               </div>
@@ -182,7 +182,7 @@ export const CaseStudy: React.FC = () => {
                 <div className="text-xs font-semibold text-muted">VISUAL KYC & ROLE-BASED ACCESS CONTROL</div>
 
                 <div className="space-y-2">
-                  <div className="p-2.5 rounded-lg bg-surface border-flat flex items-center justify-between text-xs text-primary">
+                  <div className="p-2.5 rounded-lg bg-surface flex items-center justify-between text-xs text-primary">
                     <div className="flex items-center gap-2">
                       <KeyRound className="w-3.5 h-3.5 text-accent" />
                       <span>Student ID Upload & Hash Generation</span>
@@ -190,7 +190,7 @@ export const CaseStudy: React.FC = () => {
                     <span className="text-[10px] text-muted">SHA-256</span>
                   </div>
 
-                  <div className="p-2.5 rounded-lg bg-surface border-flat flex items-center justify-between text-xs text-primary">
+                  <div className="p-2.5 rounded-lg bg-surface flex items-center justify-between text-xs text-primary">
                     <div className="flex items-center gap-2">
                       <ShieldCheck className="w-3.5 h-3.5 text-accent" />
                       <span>Admin Verification & RBAC Role Assignment</span>
@@ -198,7 +198,7 @@ export const CaseStudy: React.FC = () => {
                     <span className="text-[10px] text-emerald-500 font-semibold">Verified Freelancer</span>
                   </div>
 
-                  <div className="p-2.5 rounded-lg bg-surface border-flat flex items-center justify-between text-xs text-primary">
+                  <div className="p-2.5 rounded-lg bg-surface flex items-center justify-between text-xs text-primary">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
                       <span>Bidding Privilege Unlocked</span>

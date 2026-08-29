@@ -150,15 +150,15 @@ export const FeaturedSpecSense: React.FC = () => {
           <Sparkles className="w-4 h-4 text-primary" />
           <span>Featured Project & Live Interactive Demo</span>
         </div>
-        <span className="px-3 py-1 rounded-full bg-primary/10 border-flat text-primary text-xs font-bold uppercase tracking-wide">
+        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wide">
           Featured Innovation
         </span>
       </div>
 
       {/* Main SpecSense Card Container */}
-      <div className="rounded-2xl bg-surface border-2 border-primary p-6 md:p-8 space-y-8 shadow-xs">
+      <div className="rounded-2xl bg-surface p-6 md:p-8 space-y-8">
         {/* Project Header Info */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-flat">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-3">
               <h3 className="text-2xl md:text-3xl font-bold text-primary">{specProject.name}</h3>
@@ -171,7 +171,7 @@ export const FeaturedSpecSense: React.FC = () => {
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
               {specProject.tech.map((t) => (
-                <span key={t} className="px-2.5 py-1 rounded-md bg-surface-subtle border-flat text-xs font-medium text-muted">
+                <span key={t} className="px-2.5 py-1 rounded-md text-xs font-medium text-muted">
                   {t}
                 </span>
               ))}
@@ -184,7 +184,7 @@ export const FeaturedSpecSense: React.FC = () => {
                 href={specProject.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-surface-subtle border-flat text-primary font-medium text-xs hover:border-accent hover:text-accent transition-colors flex items-center gap-2"
+                className="px-4 py-2 rounded-xl bg-surface-subtle text-primary font-medium text-xs hover:text-accent transition-colors flex items-center gap-2"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>Source Code</span>
@@ -202,13 +202,13 @@ export const FeaturedSpecSense: React.FC = () => {
                 <span>Try SpecSense AI Live Requirement Analyzer</span>
               </h4>
               <p className="text-xs text-muted">
-                Type or paste a requirement sentence to detect ambiguous, untestable language in real time. (Shortcut: Press <kbd className="font-mono-code font-bold text-primary bg-surface-subtle px-1 rounded-sm border-flat">A</kbd> anywhere)
+                Type or paste a requirement sentence to detect ambiguous, untestable language in real time. (Shortcut: Press <kbd className="font-mono-code font-bold text-primary bg-surface-subtle px-1 rounded-sm">A</kbd> anywhere)
               </p>
             </div>
 
             {/* Quality Score Indicator */}
             <div
-              className={`flex items-center gap-3 px-3 py-1.5 rounded-xl bg-surface-subtle border-flat self-start sm:self-auto transition-all duration-300 ${
+              className={`flex items-center gap-3 px-3 py-1.5 rounded-xl bg-surface-subtle self-start sm:self-auto transition-all duration-300 ${
                 pulsing ? 'scale-110 border-primary ring-2 ring-primary/40' : ''
               }`}
             >
@@ -239,7 +239,7 @@ export const FeaturedSpecSense: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => setInputText(preset)}
-                className="text-xs px-2.5 py-1 rounded-lg bg-surface-subtle border-flat text-secondary hover:text-primary hover:border-accent transition-colors cursor-pointer"
+                className="text-xs px-2.5 py-1 rounded-lg bg-surface-subtle text-secondary hover:text-primary transition-colors cursor-pointer"
               >
                 Sample #{idx + 1}
               </button>
@@ -254,12 +254,12 @@ export const FeaturedSpecSense: React.FC = () => {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste a requirement sentence here (e.g. 'The system should be fast and user-friendly...')"
-              className="w-full p-4 rounded-xl bg-surface-subtle border-flat text-primary text-sm font-medium focus:outline-hidden focus:border-accent transition-colors resize-none"
+              className="w-full p-4 rounded-xl bg-surface-subtle text-primary text-sm font-medium focus:outline-hidden transition-colors resize-none"
             />
           </div>
 
           {/* Real-time Analysis Feedback Panel */}
-          <div className="rounded-xl bg-surface-subtle border-flat p-4 space-y-3">
+          <div className="rounded-xl bg-surface-subtle p-4 space-y-3">
             <div className="flex items-center justify-between text-xs font-semibold text-primary border-b border-flat pb-2">
               <span>Analysis Results ({analysis.vagueCount} terms flagged)</span>
               <span className="text-muted">{analysis.totalWords} total words</span>
@@ -275,14 +275,14 @@ export const FeaturedSpecSense: React.FC = () => {
                 {analysis.issues.map((issue, i) => (
                   <div
                     key={i}
-                    className="p-3 rounded-lg bg-surface border-flat space-y-1.5 hover:border-accent transition-colors"
+                    className="p-3 rounded-lg bg-surface space-y-1.5 transition-colors"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 font-mono-code text-xs font-bold">
                           "{issue.word}"
                         </span>
-                        <span className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-sm bg-surface-subtle border-flat text-muted">
+                        <span className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-sm bg-surface-subtle text-muted">
                           {issue.category}
                         </span>
                       </div>
@@ -294,7 +294,7 @@ export const FeaturedSpecSense: React.FC = () => {
                       <span>{issue.reason}</span>
                     </p>
 
-                    <div className="text-xs text-primary font-medium flex items-start gap-1.5 bg-surface-subtle p-2 rounded-md border-flat">
+                    <div className="text-xs text-primary font-medium flex items-start gap-1.5 bg-surface-subtle p-2 rounded-md">
                       <ArrowRight className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
                       <span>
                         <strong className="font-semibold">Suggestion:</strong> {issue.suggestion}

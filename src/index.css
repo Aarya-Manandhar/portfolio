@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@theme {
+  --color-surface: var(--card-bg);
+  --color-surface-subtle: var(--bg-secondary);
+  --color-surface-tertiary: var(--bg-tertiary);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-flat: var(--border-color);
+  --color-accent-flat: var(--border-accent);
+}
+
 @layer base {
   :root {
     --bg-primary: #ffffff;
@@ -46,6 +58,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg-primary);
 }
 
 body {

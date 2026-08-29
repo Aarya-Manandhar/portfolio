@@ -31,15 +31,15 @@ export const Skills: React.FC = () => {
           return (
             <div
               key={category.title}
-              className={`p-6 rounded-2xl bg-surface border-flat space-y-4 transition-all duration-200 relative group overflow-visible ${
+              className={`p-6 rounded-2xl bg-surface space-y-4 transition-all duration-200 relative group overflow-visible ${
                 isWeb3Sec
                   ? 'hover:border-l-4 hover:border-l-rose-500 hover:border-accent shadow-xs'
                   : 'hover:border-accent'
               }`}
             >
-              <div className="flex items-center justify-between border-b border-flat pb-3">
+              <div className="flex items-center justify-between pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-surface-subtle border-flat flex items-center justify-center text-primary">
+                  <div className="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-primary">
                     <IconComponent className="w-4 h-4" />
                   </div>
                   <h3 className="text-sm font-bold text-primary">{category.title}</h3>
@@ -56,7 +56,7 @@ export const Skills: React.FC = () => {
               <div className="flex flex-wrap gap-2.5 pt-1">
                 {category.skills.map((skill) => (
                   <div key={skill.name} className="relative group/badge inline-block">
-                    <div className="px-3 py-1.5 rounded-xl text-xs font-medium bg-surface-subtle border-flat text-secondary flex items-center gap-2 hover:border-accent hover:text-primary hover:bg-surface transition-all cursor-default">
+                    <div className="px-3 py-1.5 rounded-xl text-xs font-medium bg-surface-subtle text-secondary flex items-center gap-2 hover:text-primary hover:bg-surface transition-all cursor-default">
                       <TechIcon name={skill.name} deviconSlug={skill.deviconSlug} className="w-4 h-4" />
                       <span>{skill.name}</span>
                     </div>

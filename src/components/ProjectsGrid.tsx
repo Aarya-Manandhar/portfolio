@@ -69,14 +69,14 @@ export const ProjectsGrid: React.FC = () => {
         </div>
 
         {/* Filter Pills */}
-        <div className="flex flex-wrap gap-1.5 bg-surface-subtle border-flat p-1.5 rounded-xl self-start md:self-auto">
+        <div className="flex flex-wrap gap-1.5 bg-surface-subtle p-1.5 rounded-xl self-start md:self-auto">
           {filters.map((f) => (
             <button
               key={f.id}
               onClick={() => setSelectedFilter(f.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
                 selectedFilter === f.id
-                  ? 'bg-surface text-primary font-semibold border-flat shadow-xs'
+                  ? 'bg-surface text-primary font-semibold shadow-xs'
                   : 'text-muted hover:text-primary hover:bg-surface/50'
               }`}
             >
@@ -94,13 +94,13 @@ export const ProjectsGrid: React.FC = () => {
           return (
             <div
               key={project.id}
-              className="group rounded-2xl bg-surface border-flat p-6 flex flex-col justify-between space-y-4 hover:border-accent transition-all duration-200"
+              className="group rounded-2xl bg-surface p-6 flex flex-col justify-between space-y-4 transition-all duration-200"
             >
               <div className="space-y-3">
                 {/* Header: Icon, Title & Links */}
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-surface-subtle border-flat flex items-center justify-center text-primary group-hover:border-accent transition-colors">
+                    <div className="w-10 h-10 rounded-xl bg-surface-subtle flex items-center justify-center text-primary transition-colors">
                       <IconComponent className="w-5 h-5" />
                     </div>
                     <div>
@@ -124,7 +124,7 @@ export const ProjectsGrid: React.FC = () => {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg text-muted hover:text-accent hover:bg-surface-subtle border-flat transition-colors"
+                      className="p-2 rounded-lg text-muted hover:text-accent hover:bg-surface-subtle transition-colors"
                       aria-label={`View ${project.name} on GitHub`}
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -139,11 +139,11 @@ export const ProjectsGrid: React.FC = () => {
               </div>
 
               {/* Tech Tags */}
-              <div className="flex flex-wrap gap-1.5 pt-2 border-t border-flat">
+              <div className="flex flex-wrap gap-1.5 pt-2">
                 {project.tech.map((t) => (
                   <span
                     key={t}
-                    className="px-2 py-0.5 rounded-md bg-surface-subtle border-flat text-[11px] font-medium text-muted"
+                    className="px-2 py-0.5 rounded-md text-[11px] font-medium text-muted"
                   >
                     {t}
                   </span>

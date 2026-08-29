@@ -75,7 +75,7 @@ export const Hero: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle border-flat transition-colors"
+                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors"
               >
                 <GithubIcon className="w-4 h-4" />
               </a>
@@ -84,14 +84,14 @@ export const Hero: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle border-flat transition-colors"
+                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors"
               >
                 <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:${PERSONAL_INFO.email}`}
                 aria-label="Email"
-                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle border-flat transition-colors"
+                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors"
               >
                 <Mail className="w-4 h-4" />
               </a>
@@ -140,14 +140,14 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Quick Skill-Tag Strip Below Hero (Immediate Stack Visibility) */}
-      <div className="mt-12 pt-6 border-t border-flat flex flex-wrap items-center gap-3">
+      <div className="mt-12 pt-6 flex flex-wrap items-center gap-3">
         <span className="text-xs font-semibold uppercase tracking-wider text-muted mr-2 font-mono-code">
           Core Tech:
         </span>
         {PERSONAL_INFO.skillsQuickStrip.map((skill) => (
           <span
             key={skill}
-            className="px-3 py-1 rounded-lg text-xs font-medium bg-surface-subtle border-flat text-secondary hover:border-accent hover:text-primary transition-colors font-mono-code"
+            className="px-3 py-1 rounded-lg text-xs font-medium text-secondary hover:text-primary transition-colors font-mono-code"
           >
             {skill}
           </span>
