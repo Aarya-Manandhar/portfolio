@@ -43,7 +43,7 @@ const SajiloGigCaseStudy: React.FC = () => {
         {/* Part 2: Key Trade-off */}
         <div className="p-5 rounded-xl bg-surface space-y-2 border-l-4 border-l-accent transition-colors">
           <div className="flex items-center gap-2 text-sm font-bold text-primary">
-            <span className="w-6 h-6 rounded-md bg-accent text-white flex items-center justify-center text-xs font-bold">
+            <span className="w-6 h-6 rounded-md bg-primary text-surface flex items-center justify-center text-xs font-bold">
               2
             </span>
             <span>Key Trade-off: Simulated Escrow vs. Smart Contracts</span>
@@ -240,7 +240,7 @@ const DeadManSwitchCaseStudy: React.FC = () => {
         {/* Part 2: Key Trade-off */}
         <div className="p-5 rounded-xl bg-surface space-y-2 border-l-4 border-l-accent transition-colors">
           <div className="flex items-center gap-2 text-sm font-bold text-primary">
-            <span className="w-6 h-6 rounded-md bg-accent text-white flex items-center justify-center text-xs font-bold">
+            <span className="w-6 h-6 rounded-md bg-primary text-surface flex items-center justify-center text-xs font-bold">
               2
             </span>
             <span>Key Trade-off: On-Chain Keys vs. Client-Side Encryption + IPFS</span>

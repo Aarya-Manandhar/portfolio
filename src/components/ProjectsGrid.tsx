@@ -14,6 +14,7 @@ import {
   Archive,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { GithubIcon } from './Icons';
 import { PROJECTS } from '../data/portfolioData';
 
 // Map icon names to Lucide icons
@@ -108,18 +109,34 @@ export const ProjectsGrid: React.FC = () => {
               </div>
             </div>
 
-            {/* External Link */}
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg text-muted hover:text-accent hover:bg-surface-subtle transition-colors"
-                aria-label={`View ${project.name} on GitHub`}
-              >
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            )}
+            {/* External Links: GitHub & Live Deployment */}
+            <div className="flex items-center gap-1.5 shrink-0">
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors"
+                  title="View Source on GitHub"
+                  aria-label={`View ${project.name} on GitHub`}
+                >
+                  <GithubIcon className="w-4 h-4" />
+                </a>
+              )}
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target={project.liveUrl.startsWith('#') ? '_self' : '_blank'}
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 rounded-lg bg-surface-subtle hover:bg-primary hover:text-surface text-primary border border-flat transition-all flex items-center gap-1 text-xs font-medium"
+                  title="View Live Project / Deployment"
+                  aria-label={`View Live Demo of ${project.name}`}
+                >
+                  <span>Live</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
           </div>
 
           {/* One-Line Pitch */}

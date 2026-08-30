@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sun, Moon, Command } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface NavbarProps {
@@ -23,8 +23,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'featured', label: 'SpecSense AI' },
     { id: 'case-study', label: 'Case Study' },
     { id: 'projects', label: 'Projects' },
+    { id: 'deployments', label: 'Deployments' },
     { id: 'skills', label: 'Skills' },
-    { id: 'notes', label: 'Notes' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -138,8 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-surface-subtle text-muted hover:text-primary rounded-lg transition-colors cursor-pointer"
             title="Open Command Palette (⌘K)"
           >
-            <Command className="w-3.5 h-3.5 text-primary" />
-            <span className="hidden sm:inline">Search</span>
+            <span>Search</span>
             <kbd className="hidden lg:inline-block text-[10px] px-1.5 py-0.2 rounded-sm bg-surface font-mono-code text-muted">
               ⌘K
             </kbd>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Search, X, Folder, Code, Terminal, Mail, Sparkles, Compass } from 'lucide-react';
-import { PROJECTS, TECHNICAL_NOTES, PERSONAL_INFO } from '../data/portfolioData';
+import { Search, X, Folder, Code, Terminal, Mail, Sparkles, Compass, Globe } from 'lucide-react';
+import { PROJECTS, LIVE_DEPLOYMENTS, PERSONAL_INFO } from '../data/portfolioData';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -44,8 +44,8 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     { id: 'featured', label: 'Featured: SpecSense AI Demo', icon: Sparkles, type: 'Interactive' },
     { id: 'case-study', label: 'Case Study: SajiloGig Engineering', icon: Code, type: 'Deep Dive' },
     { id: 'projects', label: 'All Projects', icon: Folder, type: 'Section' },
+    { id: 'deployments', label: 'Live Deployments', icon: Globe, type: 'Production' },
     { id: 'skills', label: 'Technical Skills', icon: Terminal, type: 'Section' },
-    { id: 'notes', label: 'Engineering Notes & Writing', icon: Code, type: 'Section' },
     { id: 'contact', label: 'Contact & Resume', icon: Mail, type: 'Section' },
   ].filter((s) => s.label.toLowerCase().includes(query.toLowerCase()));
 
@@ -56,9 +56,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
       p.shortDesc.toLowerCase().includes(query.toLowerCase())
   );
 
-  const filteredNotes = TECHNICAL_NOTES.filter(
-    (n) => n.title.toLowerCase().includes(query.toLowerCase()) || n.tags.some((t) => t.toLowerCase().includes(query.toLowerCase()))
+  const filteredDeployments = LIVE_DEPLOYMENTS.filter(
+    (d) =>
+      d.name.toLowerCase().includes(query.toLowerCase()) ||
+      d.description.toLowerCase().includes(query.toLowerCase()) ||
+      (d.tags && d.tags.some((t) => t.toLowerCase().includes(query.toLowerCase())))
   );
+
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 md:pt-24 px-4 bg-black/50 backdrop-blur-xs transition-opacity animate-in fade-in duration-150">
@@ -132,7 +137,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                       <div className="text-sm font-medium text-primary group-hover:text-accent flex items-center gap-2">
                         {proj.name}
                         {proj.featured && (
-                          <span className="text-[10px] px-1.5 py-0.2 rounded-sm bg-accent text-white font-semibold">
+                          <span className="text-[10px] px-1.5 py-0.2 rounded-sm bg-primary text-surface font-semibold">
                             FEATURED
                           </span>
                         )}
@@ -154,34 +159,44 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
             </div>
           )}
 
-          {/* Technical Notes */}
-          {filteredNotes.length > 0 && (
+          {/* Live Deployments */}
+          {filteredDeployments.length > 0 && (
             <div>
-              <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted">
-                Notes & Writing
+              <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted flex items-center justify-between">
+                <span>Live Deployments ({filteredDeployments.length})</span>
+                <span className="text-[10px] text-emerald-500 font-mono-code font-bold">● LIVE</span>
               </div>
               <div className="mt-1 space-y-1">
-                {filteredNotes.map((note) => (
-                  <button
-                    key={note.id}
-                    onClick={() => navigateTo('notes')}
-                    className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-accent-light transition-colors group cursor-pointer"
+                {filteredDeployments.map((deploy) => (
+                  <a
+                    key={deploy.id}
+                    href={deploy.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-accent-light transition-colors group cursor-pointer"
                   >
-                    <div className="text-sm font-medium text-primary group-hover:text-accent truncate">
-                      {note.title}
+                    <div>
+                      <div className="text-sm font-medium text-primary group-hover:text-accent flex items-center gap-2">
+                        {deploy.name}
+                        {deploy.badge && (
+                          <span className="text-[10px] px-1.5 py-0.2 rounded-sm bg-emerald-500/10 text-emerald-500 font-semibold border border-emerald-500/20">
+                            {deploy.badge}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-xs text-muted truncate max-w-md mt-0.5">
+                        {deploy.description}
+                      </div>
                     </div>
-                    <div className="text-xs text-muted flex items-center gap-2 mt-0.5">
-                      <span>{note.date}</span>
-                      <span>•</span>
-                      <span>{note.readTime}</span>
-                    </div>
-                  </button>
+                    <span className="text-xs text-muted group-hover:text-accent">
+                      ↗
+                    </span>
+                  </a>
                 ))}
               </div>
             </div>
           )}
-
-          {/* Social Links */}
           <div>
             <div className="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted">
               Quick Links

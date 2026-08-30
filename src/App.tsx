@@ -3,11 +3,12 @@ import { Navbar } from './components/Navbar';
 import { CommandPalette } from './components/CommandPalette';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { Education } from './components/Education';
 import { FeaturedSpecSense } from './components/FeaturedSpecSense';
 import { CaseStudy } from './components/CaseStudy';
 import { ProjectsGrid } from './components/ProjectsGrid';
 import { Skills } from './components/Skills';
-import { Notes } from './components/Notes';
+import { LiveDeployments } from './components/LiveDeployments';
 import { ContactFooter } from './components/ContactFooter';
 import { CursorEffect } from './components/CursorEffect';
 import { initConsoleEasterEgg } from './utils/easterEgg';
@@ -58,12 +59,14 @@ export function App() {
       {/* Main Single Page Sections */}
       <main className="relative z-10">
         <Hero />
+        <Education />
         <About />
         <FeaturedSpecSense />
         <CaseStudy />
         <ProjectsGrid />
+        <LiveDeployments />
         <Skills />
-        <Notes />
+
       </main>
 
       {/* Contact & Footer */}

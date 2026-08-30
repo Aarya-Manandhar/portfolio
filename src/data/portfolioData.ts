@@ -1,20 +1,35 @@
-import type { Project, SkillCategory, TechnicalNote } from '../types';
+import type { Project, LiveDeployment, SkillCategory, TechnicalNote } from '../types';
 
 export const PERSONAL_INFO = {
   name: 'Aarya Manandhar',
   initials: 'AM',
   greeting: "Hi, I'm Aarya",
   // Availability banner — update this string when status changes
-  availability: '[AVAILABILITY_STATUS]', // e.g. "Open to full-time SWE roles — Fall 2026"
-  positioning: 'Where NLP meets cryptography meets production-grade engineering. I ship AI developer tools, smart contract security systems, and full-stack platforms that don\'t cut corners on reliability.',
-  bio: "My engineering instinct is to find the constraint that everyone else is working around, then remove it. At SajiloGig I removed the trust gap between student freelancers and clients without touching crypto — a server-side state machine that mirrored escrow semantics without gas fees. At DeadManSwitch I removed the custodian from digital inheritance entirely, using ERC-4337 account abstraction and client-side AES-GCM so no single party ever holds the keys. At SpecSense AI I removed the ambiguity that kills sprints before they start, catching non-verifiable requirements at authoring time. That pattern — identify the hard constraint, engineer around it cleanly — is what I bring to every project.",
+  availability: 'B.Sc. CSIT, Tribhuvan University · Graduating Nov 2026 · Open to full-time roles',
+  positioning: 'I build reliable full-stack software — AI tools, secure platforms, and Web3 systems that ship.',
+  bio: "I'm a full-stack developer who enjoys turning complex problems into clean, working software. My work spans AI developer tools, decentralized security systems, and full-stack platforms — SajiloGig taught me how to design trust into a payment system without crypto, DeadManSwitch pushed me deep into smart contract security, and SpecSense AI got me into NLP and requirement analysis. I care about writing code that's simple, correct, and easy for others to reason about.",
   statsBadge: '8 Projects Built',
   githubUser: 'Aarya-Manandhar',
-  email: 'aaryamanandhar@gmail.com',
+  email: 'aaryamanandhar2003@gmail.com',
+  displayEmail: 'aaryamanandhar [at] gmail.com',
   githubUrl: 'https://github.com/Aarya-Manandhar',
   linkedinUrl: 'https://linkedin.com/in/aaryamanandhar',
   responsePledge: 'Usually replies within 24h',
   skillsQuickStrip: ['Python', 'React', 'Java', 'PHP', 'Web3'],
+};
+
+export const EDUCATION = {
+  degree: 'B.Sc. Computer Science & Information Technology',
+  institution: 'Tribhuvan University',
+  graduationDate: 'November 2026',
+  status: 'Final-year undergraduate',
+  // Only coursework that maps directly to shipped project domains
+  relevantCoursework: [
+    { subject: 'Theory of Computation', relevance: "Formal models underlying SpecSense AI's NLP parsing rules" },
+    { subject: 'Database Management Systems', relevance: 'Schema design across SajiloGig, Smart-Tender & Baa-Ko-Achar' },
+    { subject: 'Computer Networks & Security', relevance: 'Cryptographic protocols in DeadManSwitch & RBAC in SajiloGig' },
+    { subject: 'Distributed Systems', relevance: 'IPFS sharding architecture in DeadManSwitch' },
+  ],
 };
 
 export const PROJECTS: Project[] = [
@@ -89,6 +104,27 @@ export const PROJECTS: Project[] = [
     category: 'fullstack',
     iconName: 'Gamepad2',
     githubUrl: 'https://github.com/Aarya-Manandhar/console-game',
+  },
+];
+
+export const LIVE_DEPLOYMENTS: LiveDeployment[] = [
+  {
+    id: 'porpa-muscle-world',
+    name: 'Porpa Muscle World Gym',
+    badge: 'Paid Client Project',
+    url: 'https://porpamuscleworld.vercel.app',
+    displayUrl: 'porpamuscleworld.vercel.app',
+    description: 'A full marketing and membership site for a gym in Kathmandu, including a WhatsApp-integrated inquiry form for package sign-ups.',
+    tags: ['Marketing Site', 'WhatsApp API'],
+  },
+  {
+    id: 'chaoscade',
+    name: 'CHAOSCADE',
+    badge: 'Interactive Game',
+    url: 'https://chaoscade.vercel.app',
+    displayUrl: 'chaoscade.vercel.app',
+    description: 'A self-built arcade clicking game — the rules shift as you play, with live score tracking and combo multipliers.',
+    tags: ['Arcade Game', 'Dynamic Rules', 'Score Multipliers'],
   },
 ];
 

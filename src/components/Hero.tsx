@@ -1,9 +1,16 @@
-import React from 'react';
-import { Mail, ArrowRight, Code2, ShieldCheck, Terminal, Cpu } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, ArrowRight, Code2, ShieldCheck, Terminal, Cpu, Check } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const Hero: React.FC = () => {
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -15,7 +22,7 @@ export const Hero: React.FC = () => {
     <section id="hero" className="pt-28 md:pt-36 pb-12 md:pb-20 max-w-6xl mx-auto px-4 md:px-8">
       {/* Grid Layout: reversed order on mobile (photo above text) */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-center">
-        
+
         {/* Mobile Photo (Shown top on mobile only) */}
         <div className="md:hidden flex justify-center">
           <div className="relative">
@@ -52,7 +59,10 @@ export const Hero: React.FC = () => {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary leading-tight">
-            Architecting <span className="underline decoration-primary/40 underline-offset-8">AI Tools</span>, Secure Platforms & Web3.
+            Full-Stack Developer.<br />
+            <span className="text-secondary font-semibold text-3xl sm:text-4xl lg:text-5xl block mt-1">
+              AI Tools, Secure Platforms & Web3.
+            </span>
           </h1>
 
           <p className="text-base sm:text-lg text-secondary max-w-xl font-normal leading-relaxed">
@@ -97,13 +107,18 @@ export const Hero: React.FC = () => {
               >
                 <LinkedinIcon className="w-4 h-4" />
               </a>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                aria-label="Email"
-                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors"
+              <button
+                onClick={handleCopyEmail}
+                aria-label="Copy Email"
+                title={copiedEmail ? "Email Copied!" : "Click to copy email"}
+                className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors cursor-pointer"
               >
-                <Mail className="w-4 h-4" />
-              </a>
+                {copiedEmail ? (
+                  <Check className="w-4 h-4 text-emerald-500" />
+                ) : (
+                  <Mail className="w-4 h-4" />
+                )}
+              </button>
             </div>
           </div>
         </div>
@@ -120,7 +135,7 @@ export const Hero: React.FC = () => {
                   <h3 className="font-semibold text-primary text-sm">{PERSONAL_INFO.name}</h3>
                   <p className="text-xs text-muted">Full-Stack & Web3 Developer</p>
                 </div>
-                
+
                 {/* Visual Engineering Grid Graphic */}
                 <div className="mt-4 w-full grid grid-cols-3 gap-1.5 opacity-80">
                   <div className="p-1.5 rounded-md bg-surface border-flat flex items-center justify-center">

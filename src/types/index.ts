@@ -11,6 +11,16 @@ export interface Project {
   featured?: boolean;
 }
 
+export interface LiveDeployment {
+  id: string;
+  name: string;
+  badge?: string;
+  url: string;
+  displayUrl: string;
+  description: string;
+  tags?: string[];
+}
+
 export interface SkillItem {
   name: string;
   deviconSlug?: string;
