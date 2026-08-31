@@ -60,8 +60,8 @@ export const Hero: React.FC = () => {
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary leading-tight">
             Full-Stack Developer.<br />
-            <span className="text-secondary font-semibold text-3xl sm:text-4xl lg:text-5xl block mt-1">
-              AI Tools, Secure Platforms & Web3.
+            <span className="text-secondary font-semibold text-2xl sm:text-3xl lg:text-4xl block mt-1">
+              Building web applications, backend systems, and Web3 tools.
             </span>
           </h1>
 

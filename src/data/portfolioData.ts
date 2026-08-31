@@ -6,15 +6,15 @@ export const PERSONAL_INFO = {
   greeting: "Hi, I'm Aarya",
   // Availability banner — update this string when status changes
   availability: 'B.Sc. CSIT, Tribhuvan University · Graduating Nov 2026 · Open to full-time roles',
-  positioning: 'I build reliable full-stack software — AI tools, secure platforms, and Web3 systems that ship.',
-  bio: "I'm a full-stack developer who enjoys turning complex problems into clean, working software. My work spans AI developer tools, decentralized security systems, and full-stack platforms — SajiloGig taught me how to design trust into a payment system without crypto, DeadManSwitch pushed me deep into smart contract security, and SpecSense AI got me into NLP and requirement analysis. I care about writing code that's simple, correct, and easy for others to reason about.",
+  positioning: 'Full-stack developer focused on web applications, backend systems, and Web3 experiments.',
+  bio: "I'm a final-year CSIT student who likes building practical software. Most of my projects come out of concrete questions: how to handle escrow for student freelancers without forcing crypto on people (SajiloGig), how digital inheritance could work without trusting a custodian (DeadManSwitch), or how to catch vague language in requirement specs before anyone writes code (SpecSense AI). I prefer simple architecture that actually runs over clever abstractions that break down the line.",
   statsBadge: '8 Projects Built',
   githubUser: 'Aarya-Manandhar',
   email: 'aaryamanandhar2003@gmail.com',
   displayEmail: 'aaryamanandhar [at] gmail.com',
   githubUrl: 'https://github.com/Aarya-Manandhar',
   linkedinUrl: 'https://linkedin.com/in/aaryamanandhar',
-  responsePledge: 'Usually replies within 24h',
+  responsePledge: 'Usually replies within a day',
   skillsQuickStrip: ['Python', 'React', 'Java', 'PHP', 'Web3'],
 };
 
@@ -36,8 +36,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'specsense-ai',
     name: 'SpecSense AI',
-    shortDesc: 'AI-powered requirement specification analyzer that detects ambiguous and untestable language in real time. Catches [METRIC_SPECSENSE] vague terms per average SRS document before a single sprint starts.',
-    fullDesc: 'SpecSense AI scans software requirement specifications (SRS) and user stories for subjective, vague, or non-verifiable terminology (e.g., "fast", "intuitive", "real-time"). It generates actionable suggestions and quality scores before development starts, reducing rework and misaligned expectations.',
+    shortDesc: 'Checks software requirement specs and user stories for untestable terms like "fast" or "user-friendly", suggesting concrete metric replacements.',
+    fullDesc: 'A tool that parses SRS documents and user stories to flag subjective or non-verifiable language before development starts. Built with Python and FastAPI to provide instant feedback and rewrite suggestions so engineering teams don\'t waste sprints building against ambiguous goals.',
     tech: ['Python', 'FastAPI', 'React', 'NLP', 'Tailwind CSS'],
     category: 'ai',
     iconName: 'Sparkles',
@@ -47,8 +47,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'deadmanswitch',
     name: 'DeadManSwitch',
-    shortDesc: 'Trustless data inheritance protocol: AES-GCM client-side encryption + IPFS sharding + ERC-4337 heartbeat triggers. Zero custodians, [METRIC_DMS] key reconstruction steps fully automated on-chain.',
-    fullDesc: 'A decentralized digital inheritance protocol that securely stores encrypted payload shards on IPFS. If the owner fails to send periodic heartbeat transactions, ERC-4337 account abstraction triggers trustless key reconstruction and payload delivery to designated beneficiaries.',
+    shortDesc: 'Decentralized digital inheritance tool that encrypts files client-side, stores shards on IPFS, and uses an on-chain heartbeat timer to release access keys.',
+    fullDesc: 'A digital inheritance protocol designed so no single party holds your unencrypted data. Payload files are encrypted in the browser with AES-256-GCM before uploading to IPFS. If the owner misses scheduled on-chain heartbeat check-ins, ERC-4337 triggers key reconstruction and releases the payload to the beneficiary.',
     tech: ['React', 'ethers.js', 'ERC-4337', 'MetaMask SDK', 'AES-GCM', 'IPFS'],
     category: 'web3',
     iconName: 'ShieldLock',
@@ -57,8 +57,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'sajilogig',
     name: 'SajiloGig',
-    shortDesc: 'Secure student freelancing platform with visual KYC verification and simulated escrow — [METRIC_SAJILOGIG] test gigs processed through the escrow state machine with zero payment disputes.',
-    fullDesc: 'A full-stack freelancing ecosystem engineered specifically for student developers. Features role-based access control (RBAC), multi-stage visual identity verification (KYC), milestone tracking, and a simulated escrow engine to guarantee payment release upon deliverable approval.',
+    shortDesc: 'Student freelancing platform featuring role-based dashboards, visual ID verification, and a server-side escrow state machine.',
+    fullDesc: 'A marketplace built for student developers in Nepal. Because standard escrow services require high minimum balances and crypto options create too much friction for $20-$50 gigs, I built a server-side escrow state machine in PHP that holds funds until the client approves the final deliverable.',
     tech: ['PHP', 'MySQL', 'JavaScript', 'HTML5/CSS3', 'RBAC', 'Escrow Engine'],
     category: 'fullstack',
     iconName: 'Briefcase',
@@ -67,8 +67,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'baa-ko-achar',
     name: 'Baa-Ko-Achar',
-    shortDesc: 'Full-stack e-commerce marketplace for local artisanal goods with digital Khalti payment gateway integration.',
-    fullDesc: 'Custom e-commerce web application featuring dynamic inventory management, session security, shopping cart state management, and direct API integration with Khalti digital wallet for automated payment verification.',
+    shortDesc: 'E-commerce store built for a local pickle brand, with cart management, order tracking, and Khalti payment gateway integration.',
+    fullDesc: 'Custom e-commerce web application with product inventory management, session security, shopping cart state, and direct integration with Nepal\'s Khalti wallet API for automated payment confirmation.',
     tech: ['PHP', 'JavaScript', 'HTML5/CSS3', 'Khalti API', 'MySQL'],
     category: 'fullstack',
     iconName: 'ShoppingBag',
@@ -77,8 +77,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'smart-tender',
     name: 'Smart-Tender',
-    shortDesc: 'Transparent procurement and tender management platform for posting, bidding, and automated compliance.',
-    fullDesc: 'Enterprise-grade tender management system handling multi-role workflows for government and vendor bidding. Built with strict audit trails, encrypted bid submissions, and automated deadline enforcement.',
+    shortDesc: 'Government and vendor procurement portal built in Java with role-based access, bid submission deadlines, and audit logs.',
+    fullDesc: 'A procurement system designed to handle multi-role workflows for vendor bidding. Built using Java Servlets and MySQL with strict audit logging, encrypted bid submissions, and automatic deadline enforcement.',
     tech: ['Java', 'Servlets', 'MySQL', 'HTML5/CSS3', 'Role Security'],
     category: 'platforms',
     iconName: 'FileCheck',
@@ -87,8 +87,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'qa-suite',
     name: 'QA Suite',
-    shortDesc: 'Automated UI and API testing portfolio ensuring strict regression coverage across core platforms.',
-    fullDesc: 'Comprehensive automated testing suite implementing Page Object Models in Playwright for frontend regression testing and Postman collections for REST API payload verification, schema validation, and security headers.',
+    shortDesc: 'End-to-end and API test suites using Playwright and Postman collections to catch regressions on critical user paths.',
+    fullDesc: 'Automated testing suite using Playwright for browser UI regression tests and Postman collections for REST API payload verification, status codes, and schema validation.',
     tech: ['JavaScript', 'Playwright', 'Postman', 'Jest', 'API Automation'],
     category: 'qa',
     iconName: 'TestTube',
@@ -97,8 +97,8 @@ export const PROJECTS: Project[] = [
   {
     id: 'console-game',
     name: 'console-game',
-    shortDesc: 'Console-based retro arcade games (Dodge the Car, Dino Game, Snake) engineered with modular C++ OOP patterns.',
-    fullDesc: 'Performance-optimized C++ terminal games demonstrating object-oriented principles, memory management, frame-rate timing loops, and dynamic grid collision detection without external game libraries.',
+    shortDesc: 'Retro terminal games (Snake, Dino, Dodge) written in C++ using raw terminal buffers and custom collision detection.',
+    fullDesc: 'Terminal games built in C++ to practice OOP, manual memory management, frame timing loops, and grid collision logic without relying on external game libraries.',
     tech: ['C++', 'OOP', 'Data Structures', 'Terminal Graphics'],
     category: 'fullstack',
     iconName: 'Gamepad2',
@@ -110,11 +110,10 @@ export const LIVE_DEPLOYMENTS: LiveDeployment[] = [
   {
     id: 'porpa-muscle-world',
     name: 'Porpa Muscle World Gym',
-    badge: 'Paid Client Project',
     url: 'https://porpamuscleworld.vercel.app',
     displayUrl: 'porpamuscleworld.vercel.app',
-    description: 'A full marketing and membership site for a gym in Kathmandu, including a WhatsApp-integrated inquiry form for package sign-ups.',
-    tags: ['Marketing Site', 'WhatsApp API'],
+    description: 'A marketing and membership site for a gym in Kathmandu, connected directly to WhatsApp for inquiries and package sign-ups.',
+    tags: ['Client Work', 'Marketing', 'WhatsApp API'],
   },
   {
     id: 'chaoscade',
@@ -122,8 +121,8 @@ export const LIVE_DEPLOYMENTS: LiveDeployment[] = [
     badge: 'Interactive Game',
     url: 'https://chaoscade.vercel.app',
     displayUrl: 'chaoscade.vercel.app',
-    description: 'A self-built arcade clicking game — the rules shift as you play, with live score tracking and combo multipliers.',
-    tags: ['Arcade Game', 'Dynamic Rules', 'Score Multipliers'],
+    description: 'A quick reaction arcade game I made for fun where the scoring rules and targets keep shifting as you play.',
+    tags: ['Arcade Game', 'React'],
   },
 ];
 

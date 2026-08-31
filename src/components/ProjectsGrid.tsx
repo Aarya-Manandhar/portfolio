@@ -166,10 +166,10 @@ export const ProjectsGrid: React.FC = () => {
         <div className="space-y-3">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
             <FolderGit2 className="w-4 h-4 text-accent" />
-            <span>Engineering Projects</span>
+            <span>Projects</span>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-            Proof through practical software implementations.
+            Projects & Experiments
           </h2>
         </div>
 

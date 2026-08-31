@@ -9,15 +9,15 @@ export const LiveDeployments: React.FC = () => {
       <div className="space-y-3 mb-10">
         <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
           <Activity className="w-4 h-4 text-emerald-500" />
-          <span>Production & Live Web</span>
+          <span>Live Projects</span>
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-              Live Deployments
+              Deployed Projects
             </h2>
             <p className="text-secondary text-sm md:text-base mt-1 max-w-2xl">
-              Publicly accessible production platforms, client deliveries, and live web apps.
+              A couple of things I've built and hosted that you can test out directly in your browser.
             </p>
           </div>
         </div>

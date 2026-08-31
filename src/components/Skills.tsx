@@ -10,15 +10,15 @@ export const Skills: React.FC = () => {
     <section id="skills" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2 mb-4">
         <Cpu className="w-4 h-4 text-primary" />
-        <span>Technical Proficiency</span>
+        <span>Stack & Tools</span>
       </div>
 
       <div className="space-y-3 max-w-3xl mb-10">
         <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-          Tools, languages, and engineering domains.
+          Technologies I work with
         </h2>
         <p className="text-secondary text-base leading-relaxed">
-          Categorized by core competency with proof-of-work cross references. Hover any skill badge to see shipped project usage.
+          Languages, frameworks, and tools I use across projects. Hover any badge to see where it was used.
         </p>
       </div>
 

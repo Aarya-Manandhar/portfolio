@@ -84,7 +84,7 @@ export const About: React.FC = () => {
         </div>
 
         <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-          Turning complex problems into clean, working software.
+          Building things from the ground up.
         </h2>
 
         <p className="text-secondary text-base leading-relaxed">

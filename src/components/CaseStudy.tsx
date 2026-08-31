@@ -36,7 +36,7 @@ const SajiloGigCaseStudy: React.FC = () => {
             <span>The Problem Solved</span>
           </div>
           <p className="text-xs md:text-sm text-secondary leading-relaxed pl-8">
-            Student freelancers in emerging markets face extreme trust asymmetry. Clients worry about unfulfilled code deliverables, while students worry about non-payment after work completion. Traditional escrow services require expensive merchant accounts and high minimum transaction thresholds unusable for $20–$100 micro-gigs.
+            Student freelancers in Nepal often run into trust issues on both sides: clients worry a student will disappear midway through, and students worry they won't get paid after handing over code. Traditional escrow platforms weren't an option because payment gateway setup fees and minimums ate up too much of a $20–$50 micro-gig.
           </p>
         </div>
 
@@ -46,12 +46,12 @@ const SajiloGigCaseStudy: React.FC = () => {
             <span className="w-6 h-6 rounded-md bg-primary text-surface flex items-center justify-center text-xs font-bold">
               2
             </span>
-            <span>Key Trade-off: Simulated Escrow vs. Smart Contracts</span>
+            <span>The Trade-off: Simulated Escrow in PHP vs. Smart Contracts</span>
           </div>
           <p className="text-xs md:text-sm text-secondary leading-relaxed pl-8">
-            <strong className="font-semibold text-primary">The Decision:</strong> Instead of deploying Ethereum L1 smart contracts, I engineered a server-side state-machine escrow in PHP.
+            <strong className="font-semibold text-primary">The Decision:</strong> Instead of deploying Ethereum L1 smart contracts, I built a server-side state machine in PHP.
             <br />
-            <strong className="font-semibold text-primary">Why:</strong> Over 85% of student clients lacked crypto wallets. Ethereum gas spikes ($5–$20 per tx) would consume up to 30% of micro-gig values. Simulated escrow allowed zero gas fees, instant web2 fiat onboarding, and programmatic release upon client sign-off.
+            <strong className="font-semibold text-primary">Why:</strong> Over 85% of our student target users didn't own crypto wallets. Gas spikes on mainnet ($5–$20 per transaction) would have cost more than the gigs themselves. Building a simulated escrow in PHP let clients pay with local digital wallets while still protecting both parties through state-enforced payout releases.
           </p>
         </div>
 
@@ -61,10 +61,10 @@ const SajiloGigCaseStudy: React.FC = () => {
             <span className="w-6 h-6 rounded-md bg-accent/10 text-accent flex items-center justify-center text-xs">
               3
             </span>
-            <span>Hindsight & Retrospective Improvements</span>
+            <span>What I Learned & What I'd Change</span>
           </div>
           <p className="text-xs md:text-sm text-secondary leading-relaxed pl-8">
-            While simulated escrow eliminated user onboarding friction, it retained counterparty risk on the platform server. With hindsight and modern Web3 advancements (ERC-4337 Account Abstraction), v2 will use gasless smart contracts with Paymasters—providing true trustless security without forcing students to hold crypto tokens.
+            The main downside of simulated escrow is platform liability: everything hinges on the server staying trusted and online. In early testing, I also ran into a bug where disputed gigs would hang in a pending state indefinitely if the client stopped replying—I had to add a 7-day auto-resolution timer. In a modern v2, I'd use ERC-4337 Account Abstraction with Paymasters so users can interact with real smart contracts without paying gas fees or needing crypto beforehand.
           </p>
         </div>
       </div>
@@ -233,7 +233,7 @@ const DeadManSwitchCaseStudy: React.FC = () => {
             <span>The Problem Solved</span>
           </div>
           <p className="text-xs md:text-sm text-secondary leading-relaxed pl-8">
-            Digital asset inheritance is unsolved at scale. Existing options force a losing choice: trust a centralized custodian (banks, lawyers, crypto exchanges) who can freeze, lose, or leak your keys — or share raw private keys with beneficiaries directly, destroying security while you're still alive. There was no mechanism that was simultaneously trustless, automatic, and didn't require beneficiaries to act before the inheritance event.
+            Digital asset inheritance is an awkward problem. The typical options are flawed: you either trust a centralized company (an exchange or custodian) that can freeze or leak your keys, or you hand unencrypted credentials directly to relatives while you're still alive. I wanted a way to pass on sensitive access keys only if the owner stops checking in, without any third party ever seeing the plaintext data.
           </p>
         </div>
 
@@ -243,12 +243,12 @@ const DeadManSwitchCaseStudy: React.FC = () => {
             <span className="w-6 h-6 rounded-md bg-primary text-surface flex items-center justify-center text-xs font-bold">
               2
             </span>
-            <span>Key Trade-off: On-Chain Keys vs. Client-Side Encryption + IPFS</span>
+            <span>The Trade-off: Client-Side Encryption vs. On-Chain Storage</span>
           </div>
           <p className="text-xs md:text-sm text-secondary leading-relaxed pl-8">
-            <strong className="font-semibold text-primary">The rejected approach:</strong> Storing encrypted data directly in smart contract storage is expensive ($0.64/KB on Ethereum mainnet) and permanently public — wrong for sensitive inheritance payloads.
+            <strong className="font-semibold text-primary">The rejected approach:</strong> Storing encrypted data directly in contract storage is expensive ($0.64/KB on Ethereum mainnet) and permanently public.
             <br /><br />
-            <strong className="font-semibold text-primary">The decision:</strong> Encrypt data client-side with AES-256-GCM <em>before</em> it leaves the browser, then shard and pin the ciphertext to IPFS. The smart contract stores only the IPFS content hash and the heartbeat timer — cheap, minimal, auditable. Beneficiary key reconstruction is triggered by the ERC-4337 UserOperation bundle only after the heartbeat lapses, so no single actor — not even the contract deployer — can access payloads early.
+            <strong className="font-semibold text-primary">The decision:</strong> Encrypt payloads with AES-256-GCM in the browser before they touch a network, then pin the shards to IPFS. The smart contract only tracks the IPFS content hash and the heartbeat timer. When the timer expires, the contract executes an ERC-4337 UserOperation to deliver the decryption keys to the beneficiary.
           </p>
         </div>
 
@@ -258,10 +258,10 @@ const DeadManSwitchCaseStudy: React.FC = () => {
             <span className="w-6 h-6 rounded-md bg-accent/10 text-accent flex items-center justify-center text-xs">
               3
             </span>
-            <span>Hindsight & Retrospective Improvements</span>
+            <span>What I Learned & What I'd Change</span>
           </div>
           <p className="text-xs md:text-sm text-secondary leading-relaxed pl-8">
-            The current architecture relies on IPFS pinning services for persistence — if pins expire and no node re-hosts the shards, the inheritance payload becomes inaccessible. A v2 improvement would integrate Filecoin storage deals with prepaid long-duration storage contracts, removing the pinning dependency. Additionally, the heartbeat mechanism currently requires active owner transactions; integrating ERC-4337 Paymasters would allow gasless heartbeats so owners on low-activity periods never accidentally trigger an inheritance event due to wallet balance issues.
+            The biggest headache was reliable delivery without a centralized cron server polling the blockchain. The current implementation relies on IPFS pinning services; if those pins expire without being re-hosted, the shards can get lost. For v2, I'd connect long-term Filecoin storage deals and use ERC-4337 Paymasters so checking in doesn't require holding ETH in your wallet just for heartbeat gas.
           </p>
         </div>
       </div>
@@ -453,14 +453,15 @@ export const CaseStudy: React.FC = () => {
     {
       id: 'sajilogig',
       title: 'SajiloGig',
-      badge: 'Platform Architecture & Escrow',
-      subtitle: 'Engineering Escrow Systems & Trust for Micro-Freelancing',
+      badge: 'Freelance Platform',
+      subtitle: 'Building a simulated escrow state machine for student freelancers',
       summary:
-        'A deep dive into architecture choices, payment security trade-offs, and systems thinking behind a student developer micro-gig platform.',
+        'Why I chose a server-side state machine over Ethereum smart contracts for low-value micro-gigs, and how I handled escrow dispute edge cases.',
       takeaways: [
-        'Simulated Escrow vs. Ethereum L1 gas cost analysis ($0 vs $5–$20/tx)',
-        'Server-side state-machine escrow eliminating counterparty payment risk',
-        'Role-Based Access Control (RBAC) & multi-tier visual KYC engine',
+        'Simulated Escrow vs. Ethereum gas costs ($0 fee vs $5–$20/tx on mainnet)',
+        'State-machine transitions (funded → working → submitted → approved)',
+        'Photo KYC checks to reduce throwaway client accounts',
+        'Auto-resolution timeouts to prevent disputed funds from getting stuck',
       ],
       tech: ['PHP', 'MySQL', 'State Machine', 'RBAC', 'KYC Engine'],
       icon: DollarSign,
@@ -468,14 +469,14 @@ export const CaseStudy: React.FC = () => {
     {
       id: 'deadmanswitch',
       title: 'DeadManSwitch',
-      badge: 'Web3 & Cryptographic Protocol',
-      subtitle: 'Trustless Digital Inheritance with ERC-4337 Account Abstraction',
+      badge: 'Decentralized Inheritance',
+      subtitle: 'Triggering digital inheritance on-chain without a custodian',
       summary:
-        'How client-side AES-256-GCM encryption, IPFS sharding, and smart contract heartbeat triggers eliminate custodians in digital asset inheritance.',
+        'Using browser-side AES-256-GCM encryption, IPFS sharding, and ERC-4337 smart contract triggers to pass on access keys automatically.',
       takeaways: [
-        'Zero-custody client-side encryption before data leaves the browser',
-        'IPFS content addressing to bypass expensive on-chain storage ($0.64/KB)',
-        'ERC-4337 automated heartbeat triggers for trustless beneficiary key release',
+        'Encrypting payloads in the browser so plaintext never touches a server',
+        'Storing hashes on-chain to bypass expensive Ethereum storage ($0.64/KB)',
+        'ERC-4337 account abstraction to automate beneficiary key release',
       ],
       tech: ['React', 'ethers.js', 'ERC-4337', 'AES-256-GCM', 'IPFS'],
       icon: Lock,
@@ -499,15 +500,15 @@ export const CaseStudy: React.FC = () => {
       <div className="space-y-3 mb-10">
         <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
           <BookOpen className="w-4 h-4 text-accent" />
-          <span>Engineering Case Studies</span>
+          <span>Case Studies</span>
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-              Deep Dives & Systems Architecture
+              Engineering Notes & Architecture
             </h2>
             <p className="text-secondary text-sm md:text-base mt-1 max-w-2xl">
-              Practical breakdowns of non-trivial engineering problems, architectural trade-offs, and technical retrospectives.
+              Breakdowns of technical trade-offs, architecture decisions, and what I learned from building these systems.
             </p>
           </div>
         </div>

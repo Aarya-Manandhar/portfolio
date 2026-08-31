@@ -22,21 +22,21 @@ export const ContactFooter: React.FC = () => {
           <div className="md:col-span-7 space-y-4">
             <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
               <Mail className="w-4 h-4 text-accent" />
-              <span>Get In Touch</span>
+              <span>Contact</span>
             </div>
 
             <h2 className="text-3xl md:text-4xl font-bold text-primary tracking-tight">
-              Let's build reliable software together.
+              Get in touch
             </h2>
 
             <p className="text-secondary text-base max-w-lg leading-relaxed">
-              Have a project, engineering role, or Web3/AI architecture question? Reach out directly via email or social networks.
+              Whether you have an opening for a full-stack role, a project idea, or just want to chat about Web3 and architecture—my inbox is open.
             </p>
 
             {/* Response Time Guarantee Note */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface text-xs font-medium text-muted">
               <Clock className="w-3.5 h-3.5 text-accent" />
-              <span>Response pledge: {PERSONAL_INFO.responsePledge}</span>
+              <span>Response time: {PERSONAL_INFO.responsePledge}</span>
             </div>
           </div>
 
