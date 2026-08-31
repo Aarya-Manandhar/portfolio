@@ -98,13 +98,48 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─── Fullpage Slide Engine ─────────────────────────────────────────────────── */
+
+/*
+ * Inside .fp-panel wrappers the slide transition IS the entrance animation.
+ * Neutralise scroll-reveal so reveal-hidden doesn't double-hide content and
+ * the two transitions don't compound or fight each other.
+ */
+.fp-panel .reveal-hidden,
+.fp-panel .reveal-stagger>* {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Scrollable slide panels — match site scrollbar palette */
+.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar {
+  width: 4px;
+}
+
+.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }

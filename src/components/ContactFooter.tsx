@@ -16,7 +16,7 @@ export const ContactFooter: React.FC = () => {
   return (
     <footer id="contact" className="pt-16 pb-12 border-t border-flat bg-surface-subtle">
       <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-12">
-        
+
         {/* Top Direct Contact Section */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
           <div className="md:col-span-7 space-y-4">

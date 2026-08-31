@@ -69,11 +69,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-surface/85 backdrop-blur-md border-b border-flat py-3 shadow-xs'
-          : 'bg-transparent py-5'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? 'bg-surface/85 backdrop-blur-md border-b border-flat py-3 shadow-xs'
+        : 'bg-transparent py-5'
+        }`}
       style={{
         backgroundColor: scrolled
           ? 'color-mix(in srgb, var(--card-bg) 85%, transparent)'
@@ -100,11 +99,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors duration-150 cursor-pointer ${
-                  isActive
-                    ? 'bg-surface text-primary border-flat shadow-xs'
-                    : 'border-transparent text-muted hover:text-primary hover:bg-surface/60'
-                }`}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors duration-150 cursor-pointer ${isActive
+                  ? 'bg-surface text-primary border-flat shadow-xs'
+                  : 'border-transparent text-muted hover:text-primary hover:bg-surface/60'
+                  }`}
               >
                 {link.label}
               </button>
@@ -121,9 +119,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             title="Open Command Palette (⌘K)"
           >
             <span>Search</span>
-            <kbd className="hidden lg:inline-block text-[10px] px-1.5 py-0.2 rounded-sm bg-surface font-mono-code text-muted">
-              ⌘K
-            </kbd>
           </button>
 
           <button

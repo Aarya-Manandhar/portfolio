@@ -179,11 +179,10 @@ export const ProjectsGrid: React.FC = () => {
             <button
               key={f.id}
               onClick={() => setSelectedFilter(f.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                selectedFilter === f.id
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${selectedFilter === f.id
                   ? 'bg-surface text-primary font-semibold shadow-xs'
                   : 'text-muted hover:text-primary hover:bg-surface/50'
-              }`}
+                }`}
             >
               {f.label}
             </button>

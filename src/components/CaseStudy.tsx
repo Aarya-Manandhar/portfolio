@@ -83,11 +83,10 @@ const SajiloGigCaseStudy: React.FC = () => {
               <button
                 key={mode}
                 onClick={() => setDiagramMode(mode)}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-medium capitalize transition-all cursor-pointer ${
-                  diagramMode === mode
+                className={`px-2.5 py-1 rounded-md text-[11px] font-medium capitalize transition-all cursor-pointer ${diagramMode === mode
                     ? 'bg-surface text-accent font-semibold shadow-xs'
                     : 'text-muted hover:text-primary'
-                }`}
+                  }`}
               >
                 {mode}
               </button>
@@ -280,11 +279,10 @@ const DeadManSwitchCaseStudy: React.FC = () => {
               <button
                 key={mode}
                 onClick={() => setDiagramMode(mode)}
-                className={`px-2.5 py-1 rounded-md text-[11px] font-medium capitalize transition-all cursor-pointer ${
-                  diagramMode === mode
+                className={`px-2.5 py-1 rounded-md text-[11px] font-medium capitalize transition-all cursor-pointer ${diagramMode === mode
                     ? 'bg-surface text-accent font-semibold shadow-xs'
                     : 'text-muted hover:text-primary'
-                }`}
+                  }`}
               >
                 {mode}
               </button>
@@ -450,38 +448,38 @@ export const CaseStudy: React.FC = () => {
     tech: string[];
     icon: React.ComponentType<{ className?: string }>;
   }[] = [
-    {
-      id: 'sajilogig',
-      title: 'SajiloGig',
-      badge: 'Freelance Platform',
-      subtitle: 'Building a simulated escrow state machine for student freelancers',
-      summary:
-        'Why I chose a server-side state machine over Ethereum smart contracts for low-value micro-gigs, and how I handled escrow dispute edge cases.',
-      takeaways: [
-        'Simulated Escrow vs. Ethereum gas costs ($0 fee vs $5–$20/tx on mainnet)',
-        'State-machine transitions (funded → working → submitted → approved)',
-        'Photo KYC checks to reduce throwaway client accounts',
-        'Auto-resolution timeouts to prevent disputed funds from getting stuck',
-      ],
-      tech: ['PHP', 'MySQL', 'State Machine', 'RBAC', 'KYC Engine'],
-      icon: DollarSign,
-    },
-    {
-      id: 'deadmanswitch',
-      title: 'DeadManSwitch',
-      badge: 'Decentralized Inheritance',
-      subtitle: 'Triggering digital inheritance on-chain without a custodian',
-      summary:
-        'Using browser-side AES-256-GCM encryption, IPFS sharding, and ERC-4337 smart contract triggers to pass on access keys automatically.',
-      takeaways: [
-        'Encrypting payloads in the browser so plaintext never touches a server',
-        'Storing hashes on-chain to bypass expensive Ethereum storage ($0.64/KB)',
-        'ERC-4337 account abstraction to automate beneficiary key release',
-      ],
-      tech: ['React', 'ethers.js', 'ERC-4337', 'AES-256-GCM', 'IPFS'],
-      icon: Lock,
-    },
-  ];
+      {
+        id: 'sajilogig',
+        title: 'SajiloGig',
+        badge: 'Freelance Platform',
+        subtitle: 'Building a simulated escrow state machine for student freelancers',
+        summary:
+          'Why I chose a server-side state machine over Ethereum smart contracts for low-value micro-gigs, and how I handled escrow dispute edge cases.',
+        takeaways: [
+          'Simulated Escrow vs. Ethereum gas costs ($0 fee vs $5–$20/tx on mainnet)',
+          'State-machine transitions (funded → working → submitted → approved)',
+          'Photo KYC checks to reduce throwaway client accounts',
+          'Auto-resolution timeouts to prevent disputed funds from getting stuck',
+        ],
+        tech: ['PHP', 'MySQL', 'State Machine', 'RBAC', 'KYC Engine'],
+        icon: DollarSign,
+      },
+      {
+        id: 'deadmanswitch',
+        title: 'DeadManSwitch',
+        badge: 'Decentralized Inheritance',
+        subtitle: 'Triggering digital inheritance on-chain without a custodian',
+        summary:
+          'Using browser-side AES-256-GCM encryption, IPFS sharding, and ERC-4337 smart contract triggers to pass on access keys automatically.',
+        takeaways: [
+          'Encrypting payloads in the browser so plaintext never touches a server',
+          'Storing hashes on-chain to bypass expensive Ethereum storage ($0.64/KB)',
+          'ERC-4337 account abstraction to automate beneficiary key release',
+        ],
+        tech: ['React', 'ethers.js', 'ERC-4337', 'AES-256-GCM', 'IPFS'],
+        icon: Lock,
+      },
+    ];
 
   const handleToggleStudy = (id: StudyId) => {
     if (expandedStudy === id) {
@@ -524,11 +522,10 @@ export const CaseStudy: React.FC = () => {
             <div
               key={study.id}
               onClick={() => handleToggleStudy(study.id)}
-              className={`group rounded-2xl bg-surface border-flat p-6 md:p-7 flex flex-col justify-between space-y-6 transition-all duration-300 cursor-pointer relative overflow-hidden ${
-                isExpanded
+              className={`group rounded-2xl bg-surface border-flat p-6 md:p-7 flex flex-col justify-between space-y-6 transition-all duration-300 cursor-pointer relative overflow-hidden ${isExpanded
                   ? 'border-primary ring-2 ring-primary/20 shadow-md'
                   : 'hover:border-accent hover:shadow-sm'
-              }`}
+                }`}
             >
               <div className="space-y-4">
                 {/* Header Badge & Icon */}
@@ -537,11 +534,10 @@ export const CaseStudy: React.FC = () => {
                     {study.badge}
                   </span>
                   <div
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${
-                      isExpanded
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${isExpanded
                         ? 'bg-primary text-surface'
                         : 'bg-surface-subtle text-primary group-hover:bg-primary group-hover:text-surface'
-                    }`}
+                      }`}
                   >
                     <IconComponent className="w-4 h-4" />
                   </div>
@@ -593,19 +589,17 @@ export const CaseStudy: React.FC = () => {
                     e.stopPropagation();
                     handleToggleStudy(study.id);
                   }}
-                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
-                    isExpanded
+                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${isExpanded
                       ? 'bg-primary text-surface shadow-xs'
                       : 'bg-surface-subtle hover:bg-primary hover:text-surface text-primary border-flat'
-                  }`}
+                    }`}
                 >
                   <span>
                     {isExpanded ? 'Viewing Case Study (Click to Collapse)' : 'Read Full Case Study'}
                   </span>
                   <ArrowRight
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      isExpanded ? 'rotate-90' : 'group-hover:translate-x-1'
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-1'
+                      }`}
                   />
                 </button>
               </div>
