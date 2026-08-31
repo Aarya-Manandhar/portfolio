@@ -437,69 +437,247 @@ const DeadManSwitchCaseStudy: React.FC = () => {
 type StudyId = 'sajilogig' | 'deadmanswitch';
 
 export const CaseStudy: React.FC = () => {
-  const [activeStudy, setActiveStudy] = useState<StudyId>('sajilogig');
+  const [expandedStudy, setExpandedStudy] = useState<StudyId | null>(null);
+  const detailRef = React.useRef<HTMLDivElement>(null);
 
-  const studies: { id: StudyId; label: string; subtitle: string }[] = [
-    { id: 'sajilogig', label: 'SajiloGig', subtitle: 'Escrow Systems & Trust' },
-    { id: 'deadmanswitch', label: 'DeadManSwitch', subtitle: 'ERC-4337 Inheritance Protocol' },
+  const studyCards: {
+    id: StudyId;
+    title: string;
+    badge: string;
+    subtitle: string;
+    summary: string;
+    takeaways: string[];
+    tech: string[];
+    icon: React.ComponentType<{ className?: string }>;
+  }[] = [
+    {
+      id: 'sajilogig',
+      title: 'SajiloGig',
+      badge: 'Platform Architecture & Escrow',
+      subtitle: 'Engineering Escrow Systems & Trust for Micro-Freelancing',
+      summary:
+        'A deep dive into architecture choices, payment security trade-offs, and systems thinking behind a student developer micro-gig platform.',
+      takeaways: [
+        'Simulated Escrow vs. Ethereum L1 gas cost analysis ($0 vs $5–$20/tx)',
+        'Server-side state-machine escrow eliminating counterparty payment risk',
+        'Role-Based Access Control (RBAC) & multi-tier visual KYC engine',
+      ],
+      tech: ['PHP', 'MySQL', 'State Machine', 'RBAC', 'KYC Engine'],
+      icon: DollarSign,
+    },
+    {
+      id: 'deadmanswitch',
+      title: 'DeadManSwitch',
+      badge: 'Web3 & Cryptographic Protocol',
+      subtitle: 'Trustless Digital Inheritance with ERC-4337 Account Abstraction',
+      summary:
+        'How client-side AES-256-GCM encryption, IPFS sharding, and smart contract heartbeat triggers eliminate custodians in digital asset inheritance.',
+      takeaways: [
+        'Zero-custody client-side encryption before data leaves the browser',
+        'IPFS content addressing to bypass expensive on-chain storage ($0.64/KB)',
+        'ERC-4337 automated heartbeat triggers for trustless beneficiary key release',
+      ],
+      tech: ['React', 'ethers.js', 'ERC-4337', 'AES-256-GCM', 'IPFS'],
+      icon: Lock,
+    },
   ];
+
+  const handleToggleStudy = (id: StudyId) => {
+    if (expandedStudy === id) {
+      setExpandedStudy(null);
+    } else {
+      setExpandedStudy(id);
+      setTimeout(() => {
+        detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  };
 
   return (
     <section id="case-study" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       {/* Section Header */}
-      <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2 mb-4">
-        <BookOpen className="w-4 h-4 text-accent" />
-        <span>Engineering Case Studies</span>
+      <div className="space-y-3 mb-10">
+        <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
+          <BookOpen className="w-4 h-4 text-accent" />
+          <span>Engineering Case Studies</span>
+        </div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
+              Deep Dives & Systems Architecture
+            </h2>
+            <p className="text-secondary text-sm md:text-base mt-1 max-w-2xl">
+              Practical breakdowns of non-trivial engineering problems, architectural trade-offs, and technical retrospectives.
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Study Switcher */}
-      <div className="flex items-center gap-2 mb-8">
-        {studies.map((s) => (
-          <button
-            key={s.id}
-            onClick={() => setActiveStudy(s.id)}
-            className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
-              activeStudy === s.id
-                ? 'bg-primary text-surface font-semibold shadow-xs'
-                : 'bg-surface text-muted hover:text-primary hover:bg-surface-subtle border-flat'
-            }`}
-          >
-            <div className="text-left">
-              <div className="font-semibold">{s.label}</div>
-              <div className={`text-[10px] font-mono-code ${activeStudy === s.id ? 'text-surface/70' : 'text-muted'}`}>
-                {s.subtitle}
+      {/* 2-Column Case Study Cards Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {studyCards.map((study) => {
+          const IconComponent = study.icon;
+          const isExpanded = expandedStudy === study.id;
+
+          return (
+            <div
+              key={study.id}
+              onClick={() => handleToggleStudy(study.id)}
+              className={`group rounded-2xl bg-surface border-flat p-6 md:p-7 flex flex-col justify-between space-y-6 transition-all duration-300 cursor-pointer relative overflow-hidden ${
+                isExpanded
+                  ? 'border-primary ring-2 ring-primary/20 shadow-md'
+                  : 'hover:border-accent hover:shadow-sm'
+              }`}
+            >
+              <div className="space-y-4">
+                {/* Header Badge & Icon */}
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11px] font-mono-code font-semibold px-2.5 py-0.5 rounded-md bg-surface-subtle border-flat text-muted uppercase tracking-wider">
+                    {study.badge}
+                  </span>
+                  <div
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${
+                      isExpanded
+                        ? 'bg-primary text-surface'
+                        : 'bg-surface-subtle text-primary group-hover:bg-primary group-hover:text-surface'
+                    }`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                  </div>
+                </div>
+
+                {/* Title & Subtitle */}
+                <div>
+                  <h3 className="text-xl font-bold text-primary tracking-tight group-hover:text-primary transition-colors flex items-center gap-2">
+                    <span>{study.title}</span>
+                  </h3>
+                  <p className="text-xs font-medium text-muted mt-1">{study.subtitle}</p>
+                </div>
+
+                {/* Summary */}
+                <p className="text-xs md:text-sm text-secondary leading-relaxed">
+                  {study.summary}
+                </p>
+
+                {/* Key Takeaways */}
+                <div className="space-y-1.5 pt-2 border-t border-flat">
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">
+                    Key Architectural Takeaways:
+                  </div>
+                  {study.takeaways.map((takeaway, i) => (
+                    <div key={i} className="flex items-start gap-2 text-xs text-secondary">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                      <span>{takeaway}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Tech Tags & Action Button */}
+              <div className="pt-4 border-t border-flat space-y-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {study.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2 py-0.5 rounded-md text-[11px] font-mono-code text-muted bg-surface-subtle"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleToggleStudy(study.id);
+                  }}
+                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
+                    isExpanded
+                      ? 'bg-primary text-surface shadow-xs'
+                      : 'bg-surface-subtle hover:bg-primary hover:text-surface text-primary border-flat'
+                  }`}
+                >
+                  <span>
+                    {isExpanded ? 'Viewing Case Study (Click to Collapse)' : 'Read Full Case Study'}
+                  </span>
+                  <ArrowRight
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      isExpanded ? 'rotate-90' : 'group-hover:translate-x-1'
+                    }`}
+                  />
+                </button>
               </div>
             </div>
-          </button>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Active Study Content */}
-      <div className="space-y-4 max-w-3xl mb-10">
-        {activeStudy === 'sajilogig' && (
-          <>
-            <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-              SajiloGig: Engineering Escrow Systems & Trust for Micro-Freelancing
-            </h2>
-            <p className="text-secondary text-base leading-relaxed">
-              A deep dive into architecture choices, payment security trade-offs, and systems thinking behind a student developer platform.
-            </p>
-          </>
-        )}
-        {activeStudy === 'deadmanswitch' && (
-          <>
-            <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-              DeadManSwitch: Trustless Digital Inheritance with ERC-4337 Account Abstraction
-            </h2>
-            <p className="text-secondary text-base leading-relaxed">
-              How AES-GCM client-side encryption, IPFS content addressing, and smart contract heartbeat triggers eliminate the need for any custodian in digital asset inheritance.
-            </p>
-          </>
-        )}
-      </div>
+      {/* Expanded Descriptive Form Section */}
+      {expandedStudy && (
+        <div
+          ref={detailRef}
+          className="scroll-mt-24 rounded-2xl bg-surface border-flat p-6 md:p-8 space-y-8 animate-in fade-in slide-in-from-top-4 duration-300 shadow-lg"
+        >
+          {/* Descriptive Form Header Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-flat">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono-code font-bold px-2 py-0.5 rounded-md bg-primary text-surface uppercase">
+                  Active Deep Dive
+                </span>
+                <span className="text-xs text-muted font-medium">
+                  {expandedStudy === 'sajilogig' ? 'Platform Architecture' : 'Web3 Protocol'}
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-primary tracking-tight">
+                {expandedStudy === 'sajilogig'
+                  ? 'SajiloGig: Engineering Escrow Systems & Trust for Micro-Freelancing'
+                  : 'DeadManSwitch: Trustless Digital Inheritance with ERC-4337 Account Abstraction'}
+              </h3>
+            </div>
 
-      {activeStudy === 'sajilogig' && <SajiloGigCaseStudy />}
-      {activeStudy === 'deadmanswitch' && <DeadManSwitchCaseStudy />}
+            {/* Controls: Switcher + Close Button */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() =>
+                  setExpandedStudy(expandedStudy === 'sajilogig' ? 'deadmanswitch' : 'sajilogig')
+                }
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-surface-subtle hover:bg-surface border-flat text-muted hover:text-primary transition-colors cursor-pointer"
+              >
+                Switch to {expandedStudy === 'sajilogig' ? 'DeadManSwitch' : 'SajiloGig'}
+              </button>
+
+              <button
+                onClick={() => setExpandedStudy(null)}
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface-subtle hover:bg-rose-500/10 hover:text-rose-500 border-flat text-muted transition-colors cursor-pointer flex items-center gap-1.5"
+                title="Collapse Case Study"
+              >
+                <span>Close</span>
+                <span className="text-xs">✕</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Render Full Descriptive Study Content & Diagrams */}
+          {expandedStudy === 'sajilogig' && <SajiloGigCaseStudy />}
+          {expandedStudy === 'deadmanswitch' && <DeadManSwitchCaseStudy />}
+
+          {/* Bottom Close Button */}
+          <div className="pt-6 border-t border-flat flex justify-center">
+            <button
+              onClick={() => {
+                setExpandedStudy(null);
+                document.getElementById('case-study')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-5 py-2.5 rounded-xl bg-surface-subtle hover:bg-primary hover:text-surface text-primary border-flat text-xs font-semibold transition-all cursor-pointer flex items-center gap-2"
+            >
+              <span>Collapse Case Study</span>
+              <ArrowRight className="w-3.5 h-3.5 -rotate-90" />
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
