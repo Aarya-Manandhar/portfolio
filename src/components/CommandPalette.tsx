@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Search, X, Folder, Code, Terminal, Mail, Sparkles, Compass, Globe } from 'lucide-react';
+import { Search, X, Folder, Code, Terminal, Mail, Compass, Globe } from 'lucide-react';
 import { PROJECTS, LIVE_DEPLOYMENTS, PERSONAL_INFO } from '../data/portfolioData';
 
 interface CommandPaletteProps {
@@ -41,11 +41,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
   // Filter items
   const filteredSections = [
     { id: 'about', label: 'About Aarya', icon: Compass, type: 'Section' },
-    { id: 'featured', label: 'Featured: SpecSense AI Demo', icon: Sparkles, type: 'Interactive' },
-    { id: 'case-study', label: 'Case Study: SajiloGig Engineering', icon: Code, type: 'Deep Dive' },
-    { id: 'projects', label: 'All Projects', icon: Folder, type: 'Section' },
-    { id: 'deployments', label: 'Live Deployments', icon: Globe, type: 'Production' },
     { id: 'skills', label: 'Technical Skills', icon: Terminal, type: 'Section' },
+    { id: 'projects', label: 'All Projects', icon: Folder, type: 'Section' },
+    { id: 'case-study', label: 'Case Studies: SajiloGig & DeadManSwitch', icon: Code, type: 'Deep Dive' },
+    { id: 'deployments', label: 'Live Deployments', icon: Globe, type: 'Production' },
     { id: 'contact', label: 'Contact & Resume', icon: Mail, type: 'Section' },
   ].filter((s) => s.label.toLowerCase().includes(query.toLowerCase()));
 
@@ -130,7 +129,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                 {filteredProjects.map((proj) => (
                   <button
                     key={proj.id}
-                    onClick={() => navigateTo(proj.id === 'specsense-ai' ? 'featured' : 'projects')}
+                    onClick={() => navigateTo('projects')}
                     className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-accent-light transition-colors group cursor-pointer"
                   >
                     <div>

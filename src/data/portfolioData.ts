@@ -43,7 +43,6 @@ export const PROJECTS: Project[] = [
     iconName: 'Sparkles',
     featured: true,
     githubUrl: 'https://github.com/Aarya-Manandhar/specsense-ai',
-    liveUrl: '#specsense-demo',
   },
   {
     id: 'deadmanswitch',

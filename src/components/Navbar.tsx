@@ -20,11 +20,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     { id: 'about', label: 'About' },
-    { id: 'featured', label: 'SpecSense AI' },
-    { id: 'case-study', label: 'Case Study' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'deployments', label: 'Deployments' },
     { id: 'skills', label: 'Skills' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'case-study', label: 'Case Studies' },
+    { id: 'deployments', label: 'Deployments' },
     { id: 'contact', label: 'Contact' },
   ];
 
@@ -113,25 +112,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
 
-        {/* Right Tools: Analyze Shortcut + Command Palette + Dark Mode Toggle */}
+        {/* Right Tools: Command Palette + Dark Mode Toggle */}
         <div className="flex items-center gap-2">
-          {/* Analyze Shortcut Hint Pill */}
-          <button
-            onClick={() => {
-              const el = document.getElementById('specsense-input');
-              if (el) {
-                document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' });
-                el.focus();
-              }
-            }}
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium bg-surface-subtle text-muted hover:text-primary rounded-lg transition-colors cursor-pointer"
-            title="Press 'A' anywhere to jump to SpecSense AI Analyzer"
-          >
-            <span className="text-[11px]">Analyze</span>
-            <kbd className="text-[10px] px-1.5 py-0.2 rounded-sm bg-surface font-mono-code text-primary font-bold">
-              A
-            </kbd>
-          </button>
 
           <button
             onClick={onOpenCommandPalette}

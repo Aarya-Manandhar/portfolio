@@ -4,7 +4,6 @@ import { CommandPalette } from './components/CommandPalette';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Education } from './components/Education';
-import { FeaturedSpecSense } from './components/FeaturedSpecSense';
 import { CaseStudy } from './components/CaseStudy';
 import { ProjectsGrid } from './components/ProjectsGrid';
 import { Skills } from './components/Skills';
@@ -59,14 +58,12 @@ export function App() {
       {/* Main Single Page Sections */}
       <main className="relative z-10">
         <Hero />
-        <Education />
         <About />
-        <FeaturedSpecSense />
-        <CaseStudy />
-        <ProjectsGrid />
-        <LiveDeployments />
+        <Education />
         <Skills />
-
+        <ProjectsGrid />
+        <CaseStudy />
+        <LiveDeployments />
       </main>
 
       {/* Contact & Footer */}
