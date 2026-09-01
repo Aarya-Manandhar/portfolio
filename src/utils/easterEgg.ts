@@ -26,13 +26,7 @@ export const initConsoleEasterEgg = () => {
   (window as unknown as Record<string, unknown>).aarya = {
     bio: PERSONAL_INFO.bio,
     stack: PERSONAL_INFO.skillsQuickStrip,
-    projects: PROJECTS.map((p) => ({ name: p.name, tech: p.tech, github: p.githubUrl })),
-    contact: () => {
-      console.log(`✉️ Email: ${PERSONAL_INFO.email}`);
-      console.log(`🐙 GitHub: ${PERSONAL_INFO.githubUrl}`);
-      console.log(`💼 LinkedIn: ${PERSONAL_INFO.linkedinUrl}`);
-      return 'Response pledge: usually within 24 hours.';
-    },
+    projects: PROJECTS.map((p) => ({ name: p.name, tech: p.tech })),
     secret: () => '🎉 You found the hidden console method! Built with React + Vite + Tailwind CSS.',
   };
 };

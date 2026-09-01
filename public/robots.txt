@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.aaryamanandhar.com.np/sitemap.xml
