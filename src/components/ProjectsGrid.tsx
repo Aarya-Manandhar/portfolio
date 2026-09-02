@@ -128,7 +128,7 @@ export const ProjectsGrid: React.FC = () => {
                   href={project.liveUrl}
                   target={project.liveUrl.startsWith('#') ? '_self' : '_blank'}
                   rel="noopener noreferrer"
-                  className="px-2.5 py-1 rounded-lg bg-surface-subtle hover:bg-primary hover:text-surface text-primary border border-flat transition-all flex items-center gap-1 text-xs font-medium"
+                  className="px-2.5 py-1 rounded-lg bg-surface-subtle text-primary hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 border border-transparent hover:border-accent transition-all flex items-center gap-1 text-xs font-medium"
                   title="View Live Project / Deployment"
                   aria-label={`View Live Demo of ${project.name}`}
                 >

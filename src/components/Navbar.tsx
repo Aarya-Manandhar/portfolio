@@ -23,7 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'case-study', label: 'Case Studies' },
-    { id: 'deployments', label: 'Deployments' },
+    { id: 'deployments', label: 'Live Projects' },
     { id: 'contact', label: 'Contact' },
   ];
 

@@ -7,17 +7,22 @@ export const LiveDeployments: React.FC = () => {
     <section id="deployments" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       {/* Section Header */}
       <div className="space-y-3 mb-10">
-        <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
-          <Activity className="w-4 h-4 text-emerald-500" />
-          <span>Live Projects</span>
-        </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                Online & Interactive
+              </span>
+            </div>
             <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
-              Deployed Projects
+              Live Projects
             </h2>
             <p className="text-secondary text-sm md:text-base mt-1 max-w-2xl">
-              A couple of things I've built and hosted that you can test out directly in your browser.
+              Web applications and platforms I've built and hosted that you can test out directly in your browser.
             </p>
           </div>
         </div>
@@ -28,27 +33,8 @@ export const LiveDeployments: React.FC = () => {
         {LIVE_DEPLOYMENTS.map((deploy) => (
           <div
             key={deploy.id}
-            className="group rounded-2xl bg-surface border-flat p-6 flex flex-col justify-between space-y-5 hover:border-accent transition-all duration-300 relative overflow-hidden"
+            className="group rounded-2xl bg-surface border border-transparent p-6 flex flex-col justify-between space-y-5 hover:border-accent transition-all duration-300 relative overflow-hidden"
           >
-            {/* Top Bar: Live indicator + Badge */}
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-                </span>
-                <span className="text-xs font-mono-code font-bold text-emerald-600 dark:text-emerald-400">
-                  Live
-                </span>
-              </div>
-
-              {deploy.badge && (
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-surface-subtle border-flat text-muted">
-                  {deploy.badge}
-                </span>
-              )}
-            </div>
-
             {/* Title and Description */}
             <div className="space-y-2">
               <h3 className="text-xl font-bold text-primary tracking-tight flex items-center gap-2 group-hover:text-primary">

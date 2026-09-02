@@ -44,7 +44,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
     { id: 'skills', label: 'Technical Skills', icon: Terminal, type: 'Section' },
     { id: 'projects', label: 'All Projects', icon: Folder, type: 'Section' },
     { id: 'case-study', label: 'Case Studies: SajiloGig & DeadManSwitch', icon: Code, type: 'Deep Dive' },
-    { id: 'deployments', label: 'Live Deployments', icon: Globe, type: 'Production' },
+    { id: 'deployments', label: 'Live Projects', icon: Globe, type: 'Production' },
     { id: 'contact', label: 'Contact & Resume', icon: Mail, type: 'Section' },
   ].filter((s) => s.label.toLowerCase().includes(query.toLowerCase()));
 

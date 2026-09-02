@@ -522,7 +522,7 @@ export const CaseStudy: React.FC = () => {
             <div
               key={study.id}
               onClick={() => handleToggleStudy(study.id)}
-              className={`group rounded-2xl bg-surface border-flat p-6 md:p-7 flex flex-col justify-between space-y-6 transition-all duration-300 cursor-pointer relative overflow-hidden ${isExpanded
+              className={`group rounded-2xl bg-surface border border-transparent p-6 md:p-7 flex flex-col justify-between space-y-6 transition-all duration-300 cursor-pointer relative overflow-hidden ${isExpanded
                   ? 'border-primary ring-2 ring-primary/20 shadow-md'
                   : 'hover:border-accent hover:shadow-sm'
                 }`}
@@ -557,7 +557,7 @@ export const CaseStudy: React.FC = () => {
                 </p>
 
                 {/* Key Takeaways */}
-                <div className="space-y-1.5 pt-2 border-t border-flat">
+                <div className="space-y-1.5 pt-2">
                   <div className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">
                     Key Architectural Takeaways:
                   </div>
@@ -571,7 +571,7 @@ export const CaseStudy: React.FC = () => {
               </div>
 
               {/* Bottom Tech Tags & Action Button */}
-              <div className="pt-4 border-t border-flat space-y-4">
+              <div className="pt-2 space-y-4">
                 <div className="flex flex-wrap gap-1.5">
                   {study.tech.map((t) => (
                     <span
@@ -589,9 +589,9 @@ export const CaseStudy: React.FC = () => {
                     e.stopPropagation();
                     handleToggleStudy(study.id);
                   }}
-                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${isExpanded
-                      ? 'bg-primary text-surface shadow-xs'
-                      : 'bg-surface-subtle hover:bg-primary hover:text-surface text-primary border-flat'
+                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold flex items-center justify-between transition-all duration-200 cursor-pointer ${isExpanded
+                      ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 shadow-xs'
+                      : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 border border-zinc-200/60 dark:border-zinc-800'
                     }`}
                 >
                   <span>
@@ -665,7 +665,7 @@ export const CaseStudy: React.FC = () => {
                 setExpandedStudy(null);
                 document.getElementById('case-study')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-5 py-2.5 rounded-xl bg-surface-subtle hover:bg-primary hover:text-surface text-primary border-flat text-xs font-semibold transition-all cursor-pointer flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 border border-zinc-200/60 dark:border-zinc-800 text-xs font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2"
             >
               <span>Collapse Case Study</span>
               <ArrowRight className="w-3.5 h-3.5 -rotate-90" />

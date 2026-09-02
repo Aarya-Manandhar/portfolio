@@ -118,7 +118,6 @@ export const LIVE_DEPLOYMENTS: LiveDeployment[] = [
   {
     id: 'chaoscade',
     name: 'CHAOSCADE',
-    badge: 'Interactive Game',
     url: 'https://chaoscade.vercel.app',
     displayUrl: 'chaoscade.vercel.app',
     description: 'A quick reaction arcade game I made for fun where the scoring rules and targets keep shifting as you play.',
