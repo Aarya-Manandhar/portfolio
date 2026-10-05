@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe, ExternalLink, Activity } from 'lucide-react';
+import { Globe, ExternalLink } from 'lucide-react';
 import { LIVE_DEPLOYMENTS } from '../data/portfolioData';
 
 export const LiveDeployments: React.FC = () => {

@@ -110,8 +110,8 @@ export const LIVE_DEPLOYMENTS: LiveDeployment[] = [
   {
     id: 'porpa-muscle-world',
     name: 'Porpa Muscle World Gym',
-    url: 'https://porpamuscleworld.vercel.app',
-    displayUrl: 'porpamuscleworld.vercel.app',
+    url: 'https://porpamuscleworld.com.np',
+    displayUrl: 'porpamuscleworld.com.np',
     description: 'A marketing and membership site for a gym in Kathmandu, connected directly to WhatsApp for inquiries and package sign-ups.',
     tags: ['Client Work', 'Marketing', 'WhatsApp API'],
   },

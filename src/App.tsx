@@ -17,9 +17,9 @@ export function App() {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) return savedTheme === 'dark';
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return false; // Default to light mode
     }
-    return true; // Default to sleek black-and-white dark theme
+    return false; // Default to light mode
   });
 
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
