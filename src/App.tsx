@@ -10,6 +10,7 @@ import { Skills } from './components/Skills';
 import { LiveDeployments } from './components/LiveDeployments';
 import { ContactFooter } from './components/ContactFooter';
 import { CursorEffect } from './components/CursorEffect';
+import { CodeCrawler } from './components/CodeCrawler';
 import { initConsoleEasterEgg } from './utils/easterEgg';
 
 export function App() {
@@ -47,6 +48,9 @@ export function App() {
     <div className="min-h-screen bg-surface text-primary transition-colors duration-200 selection:bg-white selection:text-black relative">
       {/* Dynamic Cursor Spotlight & Follower */}
       <CursorEffect />
+
+      {/* Code Crawler — spider-bot that crawls the node network */}
+      <CodeCrawler darkMode={darkMode} />
 
       {/* Sticky Navigation */}
       <Navbar
