@@ -11,7 +11,7 @@ export const PERSONAL_INFO = {
   statsBadge: '8 Projects Built',
   githubUser: 'Aarya-Manandhar',
   email: 'hello@aaryamanandhar.com.np',
-  displayEmail: 'hello [at] aaryamanandhar.com.np',
+  displayEmail: 'hello@aaryamanandhar.com.np',
   githubUrl: 'https://github.com/Aarya-Manandhar',
   linkedinUrl: 'https://linkedin.com/in/aaryamanandhar',
   responsePledge: 'Usually replies within a day',

@@ -205,7 +205,7 @@ export const ProjectsGrid: React.FC = () => {
 
       {/* Earlier / Learning Projects — collapsible, de-emphasised */}
       {(selectedFilter === 'all' || filteredEarlier.length > 0) && (
-        <div className="mt-10 pt-8 border-t border-flat border-dashed">
+        <div className="mt-10 pt-4">
           <button
             onClick={() => setShowEarlier((prev) => !prev)}
             className="flex items-center gap-2 text-xs font-semibold text-muted hover:text-primary transition-colors cursor-pointer group"
