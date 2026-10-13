@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Navbar } from './components/Navbar';
 import { CommandPalette } from './components/CommandPalette';
 import { Hero } from './components/Hero';
@@ -11,7 +11,7 @@ import { LiveDeployments } from './components/LiveDeployments';
 import { ContactFooter } from './components/ContactFooter';
 import { CursorEffect } from './components/CursorEffect';
 import { initConsoleEasterEgg } from './utils/easterEgg';
-
+import ChatWidget from "./components/ChatWidget";
 export function App() {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
@@ -19,7 +19,8 @@ export function App() {
       if (savedTheme) return savedTheme === 'dark';
       return false; // Default to light mode
     }
-    return false; // Default to light mode
+    return false;
+    // Default to light mode
   });
 
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
@@ -41,7 +42,7 @@ export function App() {
     initConsoleEasterEgg();
   }, []);
 
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
+  const toggleDarkMode = useCallback(() => setDarkMode((prev) => !prev), []);
 
   return (
     <div className="min-h-screen bg-surface text-primary transition-colors duration-200 selection:bg-white selection:text-black relative">
@@ -74,8 +75,12 @@ export function App() {
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
       />
+
+      {/* AI Chat Widget with Copilot & Voice */}
+      <ChatWidget onToggleDarkMode={toggleDarkMode} />
     </div>
   );
 }
 
 export default App;
+

@@ -4,7 +4,9 @@ export const PERSONAL_INFO = {
   name: 'Aarya Manandhar',
   initials: 'AM',
   greeting: "Hi, I'm Aarya",
-  // Availability banner — update this string when status changes
+  // Current role / title
+  currentRole: 'AI Developer Intern @ Nabil Bank',
+  // Availability banner — shown at the top of the hero section
   availability: 'B.Sc. CSIT, Tribhuvan University · Graduating Nov 2026 · Open to full-time roles',
   positioning: 'Full-stack developer focused on web applications, backend systems, and Web3 experiments.',
   bio: "I'm a final-year CSIT student who likes building practical software. Most of my projects come out of concrete questions: how to handle escrow for student freelancers without forcing crypto on people (SajiloGig), how digital inheritance could work without trusting a custodian (DeadManSwitch), or how to catch vague language in requirement specs before anyone writes code (SpecSense AI). I prefer simple architecture that actually runs over clever abstractions that break down the line.",

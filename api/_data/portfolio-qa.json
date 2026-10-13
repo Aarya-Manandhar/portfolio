@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "owner": "Aarya Manandhar",
+    "last_updated": "2026-10-09",
+    "style": "third person, short answers, only facts from the portfolio",
+    "match_threshold_note": "If the best embedding match scores below your threshold, return the fallback answer instead of guessing."
+  },
+  "fallback": "I don't have that information. The best way to get an answer is to reach Aarya through the Contact section of this site.",
+  "entries": [
+    {
+      "id": "about",
+      "questions": [
+        "who are you",
+        "who is Aarya",
+        "tell me about yourself",
+        "introduce him",
+        "what does he do",
+        "what do you do"
+      ],
+      "answer": "Aarya Manandhar is an AI Developer Intern at Nabil Bank and a final-year B.Sc. CSIT student at Tribhuvan University who builds full-stack web applications, backend systems, and Web3 tools. He likes practical software and prefers simple architecture that actually runs over clever abstractions."
+    },
+    {
+      "id": "current_role",
+      "questions": [
+        "what is your current role",
+        "where do you work",
+        "what are you currently doing",
+        "are you working at Nabil Bank",
+        "current job",
+        "internship"
+      ],
+      "answer": "Aarya is currently an AI Developer Intern at Nabil Bank, while completing his final year B.Sc. CSIT degree at Tribhuvan University."
+    },
+    {
+      "id": "graduation",
+      "questions": [
+        "when will you graduate",
+        "when does he finish his bachelor's degree",
+        "graduation date",
+        "when will they get their degree",
+        "is he still a student",
+        "when do you finish college"
+      ],
+      "answer": "Aarya is completing his B.Sc. in Computer Science and Information Technology at Tribhuvan University, expected November 2026."
+    },
+    {
+      "id": "availability",
+      "questions": [
+        "are you open to work",
+        "is he available for hire",
+        "looking for a job",
+        "open to full-time roles",
+        "can I hire you",
+        "is he looking for internships"
+      ],
+      "answer": "Yes. Aarya is currently working as an AI Developer Intern at Nabil Bank, and is open to full-time roles upon graduation in November 2026. Use the Contact section to reach him."
+    },
+    {
+      "id": "stack",
+      "questions": [
+        "what tech stack do you use",
+        "what languages does he know",
+        "what technologies does he work with",
+        "programming skills",
+        "what frameworks do you know"
+      ],
+      "answer": "Languages: Python, Java, PHP, JavaScript, TypeScript, SQL (and C++ in a learning project). Frontend: React, Vite, Tailwind CSS, HTML/CSS. Backend: FastAPI, PHP/Laravel, Node.js, REST APIs, MySQL. Web3 and security: ethers.js, ERC-4337, MetaMask SDK, IPFS, AES-GCM, RBAC. Testing: Playwright, Postman, Jest."
+    },
+    {
+      "id": "best_project",
+      "questions": [
+        "what is your best project",
+        "strongest project",
+        "which project should I look at first",
+        "what is he most proud of",
+        "featured project"
+      ],
+      "answer": "SpecSense AI is the featured project. For architecture depth, the SajiloGig and DeadManSwitch case studies are the best place to see how Aarya makes and explains technical trade-offs."
+    },
+    {
+      "id": "specsense",
+      "questions": [
+        "what is SpecSense AI",
+        "tell me about SpecSense",
+        "what does SpecSense do",
+        "requirements checker project",
+        "NLP project"
+      ],
+      "answer": "SpecSense AI checks software requirement specs and user stories for untestable terms like \"fast\" or \"user-friendly\" and suggests concrete, measurable replacements. It's built with Python, FastAPI, React, NLP, and Tailwind CSS."
+    },
+    {
+      "id": "deadmanswitch",
+      "questions": [
+        "what is DeadManSwitch",
+        "tell me about the inheritance project",
+        "digital inheritance tool",
+        "how does DeadManSwitch work",
+        "web3 project"
+      ],
+      "answer": "DeadManSwitch is a decentralized digital inheritance tool. Files are encrypted in the browser with AES-256-GCM, the encrypted shards are stored on IPFS, and an on-chain heartbeat timer using ERC-4337 account abstraction releases access keys to a beneficiary if the owner stops checking in. No custodian is involved. It uses React, ethers.js, and the MetaMask SDK."
+    },
+    {
+      "id": "sajilogig",
+      "questions": [
+        "what is SajiloGig",
+        "tell me about the freelancing platform",
+        "student freelance platform",
+        "what does SajiloGig do",
+        "escrow project"
+      ],
+      "answer": "SajiloGig is a student freelancing platform with role-based dashboards, visual ID verification, and a server-side escrow state machine. It's built with PHP, MySQL, and JavaScript."
+    },
+    {
+      "id": "escrow_design",
+      "questions": [
+        "why not use smart contracts for escrow",
+        "why a state machine instead of Ethereum",
+        "how does the escrow work",
+        "how do you handle disputes",
+        "why did you avoid blockchain in SajiloGig"
+      ],
+      "answer": "For low-value micro-gigs, Ethereum gas fees ($5-$20 per transaction on mainnet) would cost more than the work is worth, so SajiloGig uses a server-side state machine (funded, working, submitted, approved) at no transaction cost. Photo KYC checks reduce throwaway client accounts, and auto-resolution timeouts stop disputed funds from getting stuck. The full write-up is in the Case Studies section."
+    },
+    {
+      "id": "storage_design",
+      "questions": [
+        "why IPFS",
+        "how do you store data on chain",
+        "why store hashes on chain",
+        "how does DeadManSwitch keep costs down",
+        "is plaintext ever sent to a server"
+      ],
+      "answer": "DeadManSwitch encrypts everything in the browser, so plaintext never touches a server. Only hashes are stored on-chain, since Ethereum storage costs about $0.64 per KB, and the encrypted data itself lives on IPFS."
+    },
+    {
+      "id": "smart_tender",
+      "questions": [
+        "what is Smart-Tender",
+        "tell me about the procurement portal",
+        "java project",
+        "government tender project",
+        "what did you build in Java"
+      ],
+      "answer": "Smart-Tender is a government and vendor procurement portal built in Java with Servlets and MySQL. It has role-based access, bid submission deadlines, and audit logs."
+    },
+    {
+      "id": "qa_suite",
+      "questions": [
+        "do you do testing",
+        "what is the QA Suite",
+        "test automation experience",
+        "have you used Playwright",
+        "API testing experience"
+      ],
+      "answer": "Aarya built a QA Suite of end-to-end and API tests using Playwright, Postman collections, and Jest, aimed at catching regressions on critical user paths."
+    },
+    {
+      "id": "baa_ko_achar",
+      "questions": [
+        "what is Baa-Ko-Achar",
+        "e-commerce experience",
+        "payment gateway experience",
+        "Khalti integration",
+        "have you built an online store"
+      ],
+      "answer": "Baa-Ko-Achar is an e-commerce store built for a local pickle brand, with cart management, order tracking, and Khalti payment gateway integration. It uses PHP, JavaScript, and MySQL."
+    },
+    {
+      "id": "console_game",
+      "questions": [
+        "do you know C++",
+        "what is console-game",
+        "terminal games",
+        "have you made games"
+      ],
+      "answer": "console-game is a learning project: retro terminal games (Snake, Dino, Dodge) in C++ using raw terminal buffers and custom collision detection. Aarya also built CHAOSCADE, a React arcade game where scoring rules and targets keep shifting as you play."
+    },
+    {
+      "id": "live_projects",
+      "questions": [
+        "do you have live projects",
+        "can I try something you built",
+        "any deployed projects",
+        "client work",
+        "have you worked with real clients"
+      ],
+      "answer": "Two live projects are listed on the site. Porpa Muscle World Gym is client work: a marketing and membership site for a gym in Kathmandu, connected to WhatsApp for inquiries and sign-ups. CHAOSCADE is a quick-reaction arcade game built for fun, hosted at chaoscade.vercel.app."
+    },
+    {
+      "id": "web3",
+      "questions": [
+        "web3 experience",
+        "do you know blockchain",
+        "have you worked with Ethereum",
+        "account abstraction",
+        "what web3 tools do you use"
+      ],
+      "answer": "Web3 is a core area for Aarya. In DeadManSwitch he used ethers.js, ERC-4337 account abstraction, the MetaMask SDK, IPFS, and AES-GCM encryption. He also weighed blockchain against server-side designs in SajiloGig and chose the simpler one for cost reasons."
+    },
+    {
+      "id": "security",
+      "questions": [
+        "security experience",
+        "do you know encryption",
+        "access control experience",
+        "what do you know about RBAC",
+        "secure systems"
+      ],
+      "answer": "Aarya has implemented role-based access control in SajiloGig and Smart-Tender (the latter also has audit logs), client-side AES-GCM encryption in DeadManSwitch, and identity checks in SajiloGig through photo KYC."
+    },
+    {
+      "id": "ai_experience",
+      "questions": [
+        "do you have AI experience",
+        "machine learning projects",
+        "what AI have you built",
+        "NLP experience"
+      ],
+      "answer": "SpecSense AI is Aarya's AI and NLP project: it parses requirement text to flag vague, untestable language and suggest measurable alternatives, built with Python and FastAPI. His other work is mostly full-stack, Web3, and QA."
+    },
+    {
+      "id": "education",
+      "questions": [
+        "where did you study",
+        "what is your degree",
+        "which university",
+        "what courses relate to your projects",
+        "education background"
+      ],
+      "answer": "Aarya is studying B.Sc. Computer Science and Information Technology at Tribhuvan University. He maps coursework to his projects: Theory of Computation to SpecSense AI, Database Management to SajiloGig and Smart-Tender, Networks and Security to DeadManSwitch and SajiloGig, and Distributed Systems to DeadManSwitch's IPFS design."
+    },
+    {
+      "id": "contact",
+      "questions": [
+        "how can I contact you",
+        "how do I reach him",
+        "what is your email",
+        "where can I find your resume",
+        "do you have a CV",
+        "linkedin or github"
+      ],
+      "answer": "Use the Contact section of this site. It has a copy-email button, GitHub and LinkedIn links, and a Download CV button. Aarya usually replies within a day."
+    },
+    {
+      "id": "github",
+      "questions": [
+        "how active is your github",
+        "how many repos do you have",
+        "open source contributions",
+        "github activity"
+      ],
+      "answer": "The site shows live GitHub stats under About. His account is @Aarya-Manandhar, and the data is pulled from the GitHub API, so check there for current numbers."
+    }
+  ]
+}

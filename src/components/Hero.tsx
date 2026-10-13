@@ -32,7 +32,7 @@ export const Hero: React.FC = () => {
                   AM
                 </div>
                 <span className="mt-3 text-xs font-semibold text-primary">{PERSONAL_INFO.name}</span>
-                <span className="text-[10px] text-muted">Full-Stack Engineer</span>
+                <span className="text-[10px] text-muted">{PERSONAL_INFO.currentRole || 'Full-Stack Engineer'}</span>
               </div>
             </div>
             {/* Floating Badge */}
@@ -53,9 +53,20 @@ export const Hero: React.FC = () => {
             </div>
           )}
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-surface-subtle border-flat text-xs font-medium text-muted">
-            <Terminal className="w-3.5 h-3.5 text-primary" />
-            <span className="font-mono-code">{PERSONAL_INFO.greeting}</span>
+          {/* Greeting & Current Role Tag */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-surface-subtle border-flat text-xs font-medium text-muted">
+              <Terminal className="w-3.5 h-3.5 text-primary" />
+              <span className="font-mono-code">{PERSONAL_INFO.greeting}</span>
+            </div>
+
+            {PERSONAL_INFO.currentRole && (
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-surface border-flat text-xs font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse shrink-0" />
+                <span className="text-muted">Currently:</span>
+                <span className="font-semibold text-primary">{PERSONAL_INFO.currentRole}</span>
+              </div>
+            )}
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-primary leading-tight">
@@ -133,7 +144,7 @@ export const Hero: React.FC = () => {
                 </div>
                 <div className="text-center space-y-1">
                   <h3 className="font-semibold text-primary text-sm">{PERSONAL_INFO.name}</h3>
-                  <p className="text-xs text-muted">Full-Stack & Web3 Developer</p>
+                  <p className="text-xs text-muted">{PERSONAL_INFO.currentRole || 'Full-Stack & Web3 Developer'}</p>
                 </div>
 
                 {/* Visual Engineering Grid Graphic */}
