@@ -1,5 +1,24 @@
 import type { Project, LiveDeployment, SkillCategory, TechnicalNote } from '../types';
 
+/**
+ * Automatically calculates graduation status based on the calendar date.
+ * Graduation date is November 2026.
+ * Starting December 1, 2026 (after November 2026), status automatically updates to "Graduated" / "Completed".
+ * Supports URL param `?graduated=true` or `?graduated=false` for live testing and previewing.
+ */
+export const checkIsGraduated = (date: Date = new Date()): boolean => {
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('graduated') === 'true' || params.get('preview') === 'graduated') return true;
+    if (params.get('graduated') === 'false') return false;
+  }
+  // JS Date months are 0-indexed: 10 is November, 11 is December.
+  // December 1, 2026 marks the completion after November.
+  return date >= new Date(2026, 11, 1);
+};
+
+export const isGraduated = checkIsGraduated();
+
 export const PERSONAL_INFO = {
   name: 'Aarya Manandhar',
   initials: 'AM',
@@ -7,9 +26,13 @@ export const PERSONAL_INFO = {
   // Current role / title
   currentRole: 'AI Developer Intern @ Nabil Bank',
   // Availability banner — shown at the top of the hero section
-  availability: 'B.Sc. CSIT, Tribhuvan University · Graduating Nov 2026 · Open to full-time roles',
+  availability: isGraduated
+    ? 'B.Sc. CSIT, Tribhuvan University · Graduated · Open to full-time roles'
+    : 'B.Sc. CSIT, Tribhuvan University · Graduating Nov 2026 · Open to full-time roles',
   positioning: 'Full-stack developer focused on web applications, backend systems, and Web3 experiments.',
-  bio: "I'm a final-year CSIT student who likes building practical software. Most of my projects come out of concrete questions: how to handle escrow for student freelancers without forcing crypto on people (SajiloGig), how digital inheritance could work without trusting a custodian (DeadManSwitch), or how to catch vague language in requirement specs before anyone writes code (SpecSense AI). I prefer simple architecture that actually runs over clever abstractions that break down the line.",
+  bio: isGraduated
+    ? "I'm a CSIT graduate from Tribhuvan University who likes building practical software. Most of my projects come out of concrete questions: how to handle escrow for student freelancers without forcing crypto on people (SajiloGig), how digital inheritance could work without trusting a custodian (DeadManSwitch), or how to catch vague language in requirement specs before anyone writes code (SpecSense AI). I prefer simple architecture that actually runs over clever abstractions that break down the line."
+    : "I'm a final-year CSIT student who likes building practical software. Most of my projects come out of concrete questions: how to handle escrow for student freelancers without forcing crypto on people (SajiloGig), how digital inheritance could work without trusting a custodian (DeadManSwitch), or how to catch vague language in requirement specs before anyone writes code (SpecSense AI). I prefer simple architecture that actually runs over clever abstractions that break down the line.",
   statsBadge: '8 Projects Built',
   githubUser: 'Aarya-Manandhar',
   email: 'hello@aaryamanandhar.com.np',
@@ -24,7 +47,11 @@ export const EDUCATION = {
   degree: 'B.Sc. Computer Science & Information Technology',
   institution: 'Tribhuvan University',
   graduationDate: 'November 2026',
-  status: 'Final-year undergraduate',
+  isGraduated,
+  // Automatically switches from 'Final-year undergraduate' to 'Graduated' after November
+  status: isGraduated ? 'Graduated' : 'Final-year undergraduate',
+  // Automatically switches from 'Expected November 2026' to 'Completed November 2026'
+  completionLabel: isGraduated ? 'Completed November 2026' : 'Expected November 2026',
   // Only coursework that maps directly to shipped project domains
   relevantCoursework: [
     { subject: 'Theory of Computation', relevance: "Formal models underlying SpecSense AI's NLP parsing rules" },

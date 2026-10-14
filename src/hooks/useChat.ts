@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ChatApiResponse, ChatMessage } from "../types/chat";
+import { getClientFallbackReply } from "../data/fallbackQA";
 
 export const MAX_INPUT_CHARS = 1500; // keep in sync with MAX_INPUT_CHARS in api/chat.js
 const HISTORY_LIMIT = 6; // keep in sync with MAX_HISTORY in api/chat.js
@@ -10,10 +11,10 @@ export const WELCOME_MESSAGE: ChatMessage = {
   id: WELCOME_ID,
   role: "assistant",
   content:
-    "Hi! I'm Aarya's AI assistant with vector RAG. Ask about his work at Nabil Bank, projects, or screen a Job Description against his skills.",
+    "Hi! I'm Aarya's AI assistant. Ask about his work at Nabil Bank, projects, or screen a Job Description against his skills.",
 };
 
-class ChatRequestError extends Error {}
+class ChatRequestError extends Error { }
 
 function describeFailure(err: unknown, timedOut: boolean): string {
   if (err instanceof ChatRequestError) return err.message;
@@ -154,10 +155,25 @@ export function useChat(endpoint = "/api/chat") {
         ]);
       } catch (err) {
         if (stale()) return;
-        setMessages((prev) => [
-          ...prev,
-          { id: nextId(), role: "assistant", content: describeFailure(err, timedOut), isError: true },
-        ]);
+        const fallback = getClientFallbackReply(text);
+        if (fallback) {
+          const { cleanedText, action } = parseAction(fallback, text);
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: nextId(),
+              role: "assistant",
+              content: cleanedText,
+              source: "retrieval",
+              action,
+            },
+          ]);
+        } else {
+          setMessages((prev) => [
+            ...prev,
+            { id: nextId(), role: "assistant", content: describeFailure(err, timedOut), isError: true },
+          ]);
+        }
       } finally {
         clearTimeout(timer);
         if (!stale()) setIsLoading(false);

@@ -21,7 +21,7 @@ export const Education: React.FC = () => {
           <div className="p-5 rounded-2xl bg-surface space-y-3">
             {/* Status pill */}
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-subtle text-[11px] font-semibold text-muted font-mono-code uppercase tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className={`w-1.5 h-1.5 rounded-full bg-emerald-500 ${EDUCATION.isGraduated ? '' : 'animate-pulse'}`} />
               {EDUCATION.status}
             </span>
 
@@ -34,7 +34,7 @@ export const Education: React.FC = () => {
 
             <div className="flex items-center gap-2 text-xs text-muted">
               <span className="px-2 py-0.5 rounded-md bg-surface-subtle font-mono-code font-medium">
-                Expected {EDUCATION.graduationDate}
+                {EDUCATION.completionLabel}
               </span>
             </div>
           </div>

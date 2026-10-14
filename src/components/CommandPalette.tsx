@@ -101,7 +101,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                     <button
                       key={sec.id}
                       onClick={() => navigateTo(sec.id)}
-                      className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-accent-light transition-colors group cursor-pointer"
+                      className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer focus:outline-none"
                     >
                       <div className="flex items-center gap-3">
                         <Icon className="w-4 h-4 text-muted group-hover:text-accent transition-colors" />
@@ -130,7 +130,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                   <button
                     key={proj.id}
                     onClick={() => navigateTo('projects')}
-                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-accent-light transition-colors group cursor-pointer"
+                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer focus:outline-none"
                   >
                     <div>
                       <div className="text-sm font-medium text-primary group-hover:text-accent flex items-center gap-2">
@@ -173,7 +173,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={onClose}
-                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-accent-light transition-colors group cursor-pointer"
+                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer focus:outline-none"
                   >
                     <div>
                       <div className="text-sm font-medium text-primary group-hover:text-accent flex items-center gap-2">

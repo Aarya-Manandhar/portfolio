@@ -32,8 +32,8 @@ export const Skills: React.FC = () => {
             <div
               key={category.title}
               className={`p-6 rounded-2xl bg-surface space-y-4 transition-all duration-200 relative group overflow-visible ${isWeb3Sec
-                  ? 'hover:border-l-4 hover:border-l-rose-500 hover:border-accent shadow-xs'
-                  : 'hover:border-accent'
+                ? 'hover:border-l-4 hover:border-l-rose-500 hover:border-accent shadow-xs'
+                : 'hover:border-accent'
                 }`}
             >
               <div className="flex items-center justify-between pb-3">

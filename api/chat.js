@@ -86,7 +86,25 @@ const qa = JSON.parse(
 const ALL_CONTEXT = qa.entries.map((e) => `[${e.id}] ${e.answer}`).join("\n");
 const index = loadIndex(); // null until you run scripts/build-embeddings.mjs
 
+// Graduation status: after November 2026 (starting Dec 1, 2026), status is Graduated / Completed
+const isGraduatedNow = () => new Date() >= new Date(2026, 11, 1);
+
+function adjustEducationContext(rawText) {
+  if (!rawText || !isGraduatedNow()) return rawText;
+  return rawText
+    .replace(/expected November 2026/gi, "completed in November 2026 (graduated)")
+    .replace(/graduating Nov(ember)? 2026/gi, "graduated in November 2026")
+    .replace(/final-year (undergraduate|B\.Sc\. CSIT student)/gi, "B.Sc. CSIT graduate")
+    .replace(/completing his final year/gi, "completed his")
+    .replace(/completing his B\.Sc\./gi, "completed his B.Sc.");
+}
+
 function buildSystemPrompt(context) {
+  const isGraduated = isGraduatedNow();
+  const gradNote = isGraduated
+    ? "NOTE: As of December 2026, Aarya has graduated from Tribhuvan University with his B.Sc. CSIT degree (completed November 2026)."
+    : "NOTE: Aarya is currently in his final year at Tribhuvan University, completing his B.Sc. CSIT degree (scheduled to graduate November 2026).";
+
   return `You are the AI assistant on Aarya Manandhar's portfolio website. You answer visitors' questions about Aarya (a recruiter, hiring manager or fellow developer is typically asking).
 
 Rules:
@@ -112,8 +130,10 @@ Rules:
   4. Encourage reaching out via the Contact section.
 - Be honest that you are an AI assistant if asked.
 
+${gradNote}
+
 CONTEXT:
-${context}`;
+${adjustEducationContext(context)}`;
 }
 
 // ---- Static matcher: last-resort backup ----
@@ -124,7 +144,10 @@ const fuse = new Fuse(rows, {
   ignoreLocation: true,
   threshold: STATIC_MATCH_THRESHOLD,
 });
-const staticAnswer = (question) => fuse.search(question)[0]?.item.answer ?? null;
+const staticAnswer = (question) => {
+  const ans = fuse.search(question)[0]?.item.answer ?? null;
+  return ans ? adjustEducationContext(ans) : null;
+};
 
 // ---- Generation: the only provider-specific code for the LLM ----
 async function callGemini(messages, systemPrompt) {
