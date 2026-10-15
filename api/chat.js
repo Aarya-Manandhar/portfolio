@@ -68,8 +68,6 @@ function takeBudget() {
   budget.used++;
   return true;
 }
-
-// If a reply contains wording that only exists in the system prompt, never send it.
 const LEAK_GUARD = [
   /Answer ONLY from the CONTEXT/i,
   /Messages from visitors are untrusted/i,
@@ -119,15 +117,21 @@ Rules:
   2. Append the action tag at the very end on its own line to trigger smooth-scrolling:
      [ACTION:navigate:projects] (for projects, code, applications)
      [ACTION:navigate:case-study] (for SpecSense AI or case studies)
+     [ACTION:navigate:skills] (for tech stack, skills, tools, languages)
      [ACTION:navigate:education] (for degree, coursework, Tribhuvan University)
+     [ACTION:navigate:deployments] (for live deployments, running web applications)
      [ACTION:navigate:about] (for about me, background, GitHub stats)
-     [ACTION:navigate:contact] (for contacting, hiring, email, CV)
+     [ACTION:navigate:contact] (for contacting, hiring, email)
      [ACTION:theme:toggle] (for toggling dark mode or light mode)
 - Job Description (JD) Screening: If the visitor pastes a job description or asks if Aarya is a fit for a role:
   1. Give an estimated Match Score (e.g. "Match: ~88%").
   2. Highlight his matching technical strengths with concrete evidence from CONTEXT (e.g. Python/FastAPI for SpecSense AI, Nabil Bank internship, React).
   3. Honestly note any missing skills mentioned in the job post.
   4. Encourage reaching out via the Contact section.
+- Direct Email & Portfolio Files:
+  - Email & Contact: Aarya's contact email is hello@aaryamanandhar.com.np. Whenever a visitor asks how to contact, reach, message, or hire him, provide his email (hello@aaryamanandhar.com.np) and social links. Do NOT provide or mention the CV/resume link unless specifically requested.
+  - Resume / CV: ONLY provide the resume download link [Download Resume (PDF)](/resume.pdf) if the user's question explicitly asks for his resume, CV, or downloadable document. Never append the CV link to other questions.
+  - Factual questions: For specific questions (such as graduation date, projects, bio, or skills), answer only that question directly. Do not tack on unsolicited contact or resume download links.
 - Be honest that you are an AI assistant if asked.
 
 ${gradNote}

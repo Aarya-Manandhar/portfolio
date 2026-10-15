@@ -9,7 +9,6 @@ import { ProjectsGrid } from './components/ProjectsGrid';
 import { Skills } from './components/Skills';
 import { LiveDeployments } from './components/LiveDeployments';
 import { ContactFooter } from './components/ContactFooter';
-import { CursorEffect } from './components/CursorEffect';
 import { initConsoleEasterEgg } from './utils/easterEgg';
 import ChatWidget from "./components/ChatWidget";
 export function App() {
@@ -46,9 +45,6 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-surface text-primary transition-colors duration-200 selection:bg-white selection:text-black relative">
-      {/* Dynamic Cursor Spotlight & Follower */}
-      <CursorEffect />
-
       {/* Sticky Navigation */}
       <Navbar
         darkMode={darkMode}

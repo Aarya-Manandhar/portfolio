@@ -14,8 +14,8 @@
 
 @layer base {
   :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f4f4f5;
+    --bg-primary: #f5f5f7;
+    --bg-secondary: #f3f2f2;
     --bg-tertiary: #e4e4e7;
     --border-color: #e4e4e7;
     --border-accent: #09090b;
@@ -31,12 +31,11 @@
     --badge-text: #18181b;
     --code-bg: #09090b;
     --code-text: #fafafa;
-    --cursor-glow: rgba(0, 0, 0, 0.04);
   }
 
   .dark {
-    --bg-primary: #050505;
-    --bg-secondary: #0a0a0a;
+    --bg-primary: #000000;
+    --bg-secondary: #060606;
     --bg-tertiary: #18181b;
     --border-color: #27272a;
     --border-accent: #ffffff;
@@ -46,100 +45,122 @@
     --accent: #ffffff;
     --accent-hover: #e4e4e7;
     --accent-light: #18181b;
-    --card-bg: #0a0a0a;
-    --card-hover: #121212;
+    --card-bg: #0f0f0f;
+    --card-hover: #161616;
     --badge-bg: #18181b;
     --badge-text: #f4f4f5;
     --code-bg: #000000;
     --code-text: #ffffff;
-    --cursor-glow: rgba(255, 255, 255, 0.07);
   }
-}
 
-html {
-  scroll-behavior: smooth;
-  background-color: var(--bg-primary);
-}
+  html {
+    scroll-behavior: smooth;
+    background: var(--page-bg);
+    background-attachment: fixed;
+  }
 
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-  overflow-x: hidden;
-}
+  body {
+    background: transparent;
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    transition: background 0.3s ease, color 0.2s ease;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
 
-/* Monospace font utility for code/tech elements */
-.font-mono-code {
-  font-family: 'JetBrains Mono', monospace;
-}
+  /* Monospace font utility for code/tech elements */
+  .font-mono-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
 
-/* Hairline borders & minimalist cards */
-.border-flat {
-  border: 1px solid var(--border-color);
-}
+  /* Hairline borders & minimalist cards */
+  .border-flat {
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.3s ease;
+  }
 
-.border-accent-flat {
-  border: 1px solid var(--border-accent);
-}
+  .border-accent-flat {
+    border: 1px solid var(--border-accent);
+  }
 
-.bg-surface {
-  background-color: var(--card-bg);
-}
+  /* Section borders */
+  section.border-flat {
+    transition: box-shadow 0.3s ease;
+  }
 
-.bg-surface-subtle {
-  background-color: var(--bg-secondary);
-}
+  /* Card surface styling — light, subtle elevated shadow */
+  .bg-surface {
+    background-color: var(--card-bg);
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.035), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.25s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
+  .dark .bg-surface {
+    box-shadow: 0 0 18px 0 rgba(255, 255, 255, 0.03), 0 2px 10px -2px rgba(255, 255, 255, 0.02);
+  }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
+  /* Subtle lift on hover */
+  .bg-surface:hover {
+    box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.06), 0 4px 14px -2px rgba(0, 0, 0, 0.06);
+  }
 
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 3px;
-}
+  .dark .bg-surface:hover {
+    box-shadow: 0 0 24px 0 rgba(255, 255, 255, 0.05), 0 4px 16px -2px rgba(255, 255, 255, 0.03);
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
+  .bg-surface-subtle {
+    background-color: var(--bg-secondary);
+  }
 
-/* ─── Fullpage Slide Engine ─────────────────────────────────────────────────── */
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
 
-/*
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  /* ─── Fullpage Slide Engine ─────────────────────────────────────────────────── */
+
+  /*
  * Inside .fp-panel wrappers the slide transition IS the entrance animation.
  * Neutralise scroll-reveal so reveal-hidden doesn't double-hide content and
  * the two transitions don't compound or fight each other.
  */
-.fp-panel .reveal-hidden,
-.fp-panel .reveal-stagger>* {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none !important;
-}
+  .fp-panel .reveal-hidden,
+  .fp-panel .reveal-stagger>* {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 
-/* Scrollable slide panels — match site scrollbar palette */
-.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar {
-  width: 4px;
-}
+  /* Scrollable slide panels — match site scrollbar palette */
+  .fp-panel [id^="fp-scroll-"]::-webkit-scrollbar {
+    width: 4px;
+  }
 
-.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-track {
-  background: transparent;
-}
+  .fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 2px;
-}
+  .fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+  }
 
-.fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  .fp-panel [id^="fp-scroll-"]::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
 }

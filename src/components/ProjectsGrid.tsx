@@ -161,7 +161,7 @@ export const ProjectsGrid: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
+    <section id="projects" className="py-12 md:py-16 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
         <div className="space-y-3">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">

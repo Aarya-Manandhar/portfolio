@@ -76,8 +76,8 @@ export const About: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
-      <div className="max-w-3xl space-y-4">
+    <section id="about" className="py-12 md:py-16 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
+      <div className="max-w-3xl space-y-3">
         <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
           <UserCheck className="w-4 h-4 text-accent" />
           <span>About Me</span>
@@ -93,7 +93,7 @@ export const About: React.FC = () => {
       </div>
 
       {/* Live GitHub Stats Grid */}
-      <div className="mt-10 pt-6">
+      <div className="mt-6 pt-4">
         <div className="flex items-center justify-between mb-4">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">
             <span>Live Activity (GitHub API)</span>

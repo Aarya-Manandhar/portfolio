@@ -1,9 +1,3 @@
-// api/_rag.js — the building blocks of RAG (the leading underscore stops Vercel
-// from exposing this file as a public route).
-//
-//   embed()      turns text into a vector (a list of numbers that captures meaning)
-//   loadIndex()  loads the precomputed vectors for every chunk of your content
-//   search()     finds the chunks whose vectors are closest to the question's vector
 
 import fs from "node:fs";
 import path from "node:path";
@@ -11,8 +5,7 @@ import path from "node:path";
 export const EMBED_MODEL = "gemini-embedding-001";
 export const EMBED_DIMS = 768; // smaller vectors = smaller file, still plenty for ~20 chunks
 
-// 1) EMBED -------------------------------------------------------------------
-// taskType matters: store chunks as RETRIEVAL_DOCUMENT, questions as RETRIEVAL_QUERY.
+
 export async function embed(text, taskType) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${EMBED_MODEL}:embedContent`;
   const response = await fetch(url, {
@@ -37,8 +30,6 @@ export async function embed(text, taskType) {
   return normalize(data.embedding.values);
 }
 
-// Scale a vector to length 1. Then "dot product" == "cosine similarity" (-1..1, higher = closer in meaning).
-// Needed because only the full 3072-dim output comes pre-normalized from the API.
 export function normalize(v) {
   const len = Math.sqrt(v.reduce((s, x) => s + x * x, 0)) || 1;
   return v.map((x) => x / len);
@@ -50,9 +41,6 @@ function dot(a, b) {
   return s;
 }
 
-// 2) INDEX -------------------------------------------------------------------
-// Created by scripts/build-embeddings.mjs. Returns null if it doesn't exist yet,
-// so the chatbot still works (without retrieval) before you've built it.
 export function loadIndex() {
   const file = path.join(process.cwd(), "api", "_data", "embeddings.json");
   if (!fs.existsSync(file)) return null;
@@ -62,13 +50,9 @@ export function loadIndex() {
     console.warn("embeddings.json was built with a different model/size: rebuild it.");
     return null;
   }
-  // Re-normalize: vectors were rounded when saved to keep the file small
   index.chunks.forEach((c) => (c.vector = normalize(c.vector)));
   return index;
 }
-
-// 3) SEARCH ------------------------------------------------------------------
-// Compare the question's vector with every chunk, return the k closest.
 export function search(queryVector, index, k) {
   if (queryVector.length !== index.dims) throw new Error("Vector size mismatch");
   return index.chunks

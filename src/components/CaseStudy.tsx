@@ -493,7 +493,7 @@ export const CaseStudy: React.FC = () => {
   };
 
   return (
-    <section id="case-study" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
+    <section id="case-study" className="py-12 md:py-16 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       {/* Section Header */}
       <div className="space-y-3 mb-10">
         <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2">

@@ -7,7 +7,7 @@ const GROUP_ICONS = [Terminal, Layout, Shield, TestTube, Server];
 
 export const Skills: React.FC = () => {
   return (
-    <section id="skills" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
+    <section id="skills" className="py-12 md:py-16 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       <div className="text-xs font-semibold uppercase tracking-wider text-muted flex items-center gap-2 mb-4">
         <Cpu className="w-4 h-4 text-primary" />
         <span>Stack & Tools</span>
@@ -26,15 +26,11 @@ export const Skills: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {SKILL_CATEGORIES.map((category, idx) => {
           const IconComponent = GROUP_ICONS[idx % GROUP_ICONS.length];
-          const isWeb3Sec = category.isWeb3Security || category.title.includes('Web3');
 
           return (
             <div
               key={category.title}
-              className={`p-6 rounded-2xl bg-surface space-y-4 transition-all duration-200 relative group overflow-visible ${isWeb3Sec
-                ? 'hover:border-l-4 hover:border-l-rose-500 hover:border-accent shadow-xs'
-                : 'hover:border-accent'
-                }`}
+              className="p-6 rounded-2xl bg-surface space-y-4 transition-all duration-200 relative group overflow-visible hover:border-accent"
             >
               <div className="flex items-center justify-between pb-3">
                 <div className="flex items-center gap-3">
@@ -43,12 +39,6 @@ export const Skills: React.FC = () => {
                   </div>
                   <h3 className="text-sm font-bold text-primary">{category.title}</h3>
                 </div>
-
-                {isWeb3Sec && (
-                  <span className="text-[10px] font-mono-code px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-500 font-semibold">
-                    CORE DOMAIN
-                  </span>
-                )}
               </div>
 
               {/* Icon-Based Skill Badges */}

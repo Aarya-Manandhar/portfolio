@@ -5,7 +5,7 @@
     "style": "third person, short answers, only facts from the portfolio",
     "match_threshold_note": "If the best embedding match scores below your threshold, return the fallback answer instead of guessing."
   },
-  "fallback": "I don't have that information. The best way to get an answer is to reach Aarya through the Contact section of this site.",
+  "fallback": "I don't have that specific information right now. You can reach Aarya directly at hello@aaryamanandhar.com.np or connect via LinkedIn and GitHub in the Contact section. [ACTION:navigate:contact]",
   "entries": [
     {
       "id": "about",
@@ -235,11 +235,37 @@
         "how can I contact you",
         "how do I reach him",
         "what is your email",
+        "email address",
+        "contact email",
+        "how to get in touch",
+        "email",
+        "how can I message Aarya",
+        "where can I reach you"
+      ],
+      "answer": "You can email Aarya directly at hello@aaryamanandhar.com.np (he usually replies within a day), or connect via LinkedIn and GitHub in the Contact section. [ACTION:navigate:contact]"
+    },
+    {
+      "id": "resume",
+      "questions": [
         "where can I find your resume",
         "do you have a CV",
-        "linkedin or github"
+        "download resume",
+        "resume link",
+        "can I get your resume",
+        "cv download",
+        "give me the file",
+        "what file is provided",
+        "portfolio file",
+        "pdf resume",
+        "download cv",
+        "share your resume",
+        "resume file",
+        "cv file",
+        "send me your resume",
+        "link to the file",
+        "show me your resume"
       ],
-      "answer": "Use the Contact section of this site. It has a copy-email button, GitHub and LinkedIn links, and a Download CV button. Aarya usually replies within a day."
+      "answer": "You can view and download Aarya's full CV / Resume directly here: [Download Resume (PDF)](/resume.pdf). You can also reach him at hello@aaryamanandhar.com.np for inquiries and opportunities. [ACTION:navigate:contact]"
     },
     {
       "id": "github",

@@ -4,7 +4,7 @@ import { LIVE_DEPLOYMENTS } from '../data/portfolioData';
 
 export const LiveDeployments: React.FC = () => {
   return (
-    <section id="deployments" className="py-16 md:py-24 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
+    <section id="deployments" className="py-12 md:py-16 border-t border-flat max-w-6xl mx-auto px-4 md:px-8">
       {/* Section Header */}
       <div className="space-y-3 mb-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">

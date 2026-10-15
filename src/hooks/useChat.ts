@@ -48,13 +48,19 @@ function inferActionFromText(userText: string, assistantText: string): { type: "
   if (/(specsense|case\s*study)/i.test(user) && /(show|take|view|open|scroll|navigate|tell)/i.test(user)) {
     return { type: "navigate", target: "case-study" };
   }
-  if (/(education|degree|university|college)/i.test(user) && /(take|show|view|scroll|navigate|where)/i.test(user)) {
+  if (/(education|degree|university|college|study)/i.test(user) && /(take|show|view|scroll|navigate|where)/i.test(user)) {
     return { type: "navigate", target: "education" };
   }
-  if (/(contact|email|reach|hire)/i.test(user) && /(take|show|how|reach|contact)/i.test(user)) {
+  if (/(skill|stack|tool|technolog)/i.test(user) && /(take|show|view|scroll|navigate|what)/i.test(user)) {
+    return { type: "navigate", target: "skills" };
+  }
+  if (/(deployment|live\s*demo|live\s*app)/i.test(user) && /(take|show|view|scroll|navigate)/i.test(user)) {
+    return { type: "navigate", target: "deployments" };
+  }
+  if (/(contact|email|reach|hire|resume|cv|file)/i.test(user) && /(take|show|how|reach|contact|download|where|find|get)/i.test(user)) {
     return { type: "navigate", target: "contact" };
   }
-  if (/(about\s*me|bio|background)/i.test(user) && /(take|show|view|scroll)/i.test(user)) {
+  if (/(about\s*me|bio|background|who\s*is)/i.test(user) && /(take|show|view|scroll|tell)/i.test(user)) {
     return { type: "navigate", target: "about" };
   }
   return undefined;

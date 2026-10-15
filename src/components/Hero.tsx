@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="hero" className="pt-28 md:pt-36 pb-12 md:pb-20 max-w-6xl mx-auto px-4 md:px-8">
+    <section id="hero" className="pt-28 md:pt-36 pb-20 md:pb-28 max-w-6xl mx-auto px-4 md:px-8">
       {/* Grid Layout: reversed order on mobile (photo above text) */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-center">
 
@@ -99,7 +99,7 @@ export const Hero: React.FC = () => {
             </button>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-1.5 ml-2 border-l border-flat pl-4">
+            <div className="flex items-center gap-1.5 ml-2">
               <a
                 href={PERSONAL_INFO.githubUrl}
                 target="_blank"

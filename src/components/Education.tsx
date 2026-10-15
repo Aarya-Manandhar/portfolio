@@ -6,7 +6,7 @@ export const Education: React.FC = () => {
   return (
     <section
       id="education"
-      className="py-10 md:py-14 border-t border-flat max-w-6xl mx-auto px-4 md:px-8"
+      className="py-12 md:py-16 border-t border-flat max-w-6xl mx-auto px-4 md:px-8"
     >
       {/* Compact two-column layout: credential left, coursework right */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
