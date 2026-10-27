@@ -123,6 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={onToggleDarkMode}
+            data-theme-toggle=""
             className="p-2 bg-surface-subtle text-muted hover:text-primary rounded-lg transition-colors cursor-pointer"
             aria-label="Toggle Dark/Light Mode"
           >

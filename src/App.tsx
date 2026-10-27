@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { CommandPalette } from './components/CommandPalette';
 import { Hero } from './components/Hero';
@@ -10,45 +10,27 @@ import { Skills } from './components/Skills';
 import { LiveDeployments } from './components/LiveDeployments';
 import { ContactFooter } from './components/ContactFooter';
 import { initConsoleEasterEgg } from './utils/easterEgg';
-import ChatWidget from "./components/ChatWidget";
+import ChatWidget from './components/ChatWidget';
+import { useTheme } from './hooks/useTheme';
+
 export function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) return savedTheme === 'dark';
-      return false; // Default to light mode
-    }
-    return false;
-    // Default to light mode
-  });
+  // One shared theme store: it applies the "dark" class, saves the choice, and follows the system setting.
+  // (This replaces the old darkMode useState and the effect that wrote to localStorage.)
+  const { theme, toggleTheme } = useTheme();
 
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-
-  // Sync Dark/Light class to html body
-  useEffect(() => {
-    const root = document.documentElement;
-    if (darkMode) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
 
   // Init devtools easter egg
   useEffect(() => {
     initConsoleEasterEgg();
   }, []);
 
-  const toggleDarkMode = useCallback(() => setDarkMode((prev) => !prev), []);
-
   return (
-    <div className="min-h-screen bg-surface text-primary transition-colors duration-200 selection:bg-white selection:text-black relative">
+    <div className="min-h-screen bg-surface text-primary selection:bg-white selection:text-black relative">
       {/* Sticky Navigation */}
       <Navbar
-        darkMode={darkMode}
-        onToggleDarkMode={toggleDarkMode}
+        darkMode={theme === 'dark'}
+        onToggleDarkMode={toggleTheme}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
@@ -73,10 +55,9 @@ export function App() {
       />
 
       {/* AI Chat Widget with Copilot & Voice */}
-      <ChatWidget onToggleDarkMode={toggleDarkMode} />
+      <ChatWidget onToggleDarkMode={toggleTheme} />
     </div>
   );
 }
 
 export default App;
-
