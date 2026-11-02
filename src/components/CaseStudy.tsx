@@ -71,7 +71,7 @@ const SajiloGigCaseStudy: React.FC = () => {
 
       {/* Right Column: Interactive System Architecture Diagram */}
       <div className="lg:col-span-6 rounded-2xl bg-surface p-5 space-y-5">
-        <div className="flex items-center justify-between border-b border-flat pb-3">
+        <div className="flex items-center justify-between pb-3">
           <div className="flex items-center gap-2 text-xs font-bold text-primary">
             <Layers className="w-4 h-4 text-accent" />
             <span>Interactive Architecture Diagram</span>
@@ -267,7 +267,7 @@ const DeadManSwitchCaseStudy: React.FC = () => {
 
       {/* Right Column: Interactive System Architecture Diagram */}
       <div className="lg:col-span-6 rounded-2xl bg-surface p-5 space-y-5">
-        <div className="flex items-center justify-between border-b border-flat pb-3">
+        <div className="flex items-center justify-between pb-3">
           <div className="flex items-center gap-2 text-xs font-bold text-primary">
             <Layers className="w-4 h-4 text-accent" />
             <span>Interactive Architecture Diagram</span>
@@ -612,10 +612,10 @@ export const CaseStudy: React.FC = () => {
       {expandedStudy && (
         <div
           ref={detailRef}
-          className="scroll-mt-24 rounded-2xl bg-surface border-flat p-6 md:p-8 space-y-8 animate-in fade-in slide-in-from-top-4 duration-300 shadow-lg"
+          className="scroll-mt-24 rounded-2xl bg-surface p-6 md:p-8 space-y-8 animate-in fade-in slide-in-from-top-4 duration-300 shadow-lg"
         >
           {/* Descriptive Form Header Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-flat">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-mono-code font-bold px-2 py-0.5 rounded-md bg-primary text-surface uppercase">
@@ -659,7 +659,7 @@ export const CaseStudy: React.FC = () => {
           {expandedStudy === 'deadmanswitch' && <DeadManSwitchCaseStudy />}
 
           {/* Bottom Close Button */}
-          <div className="pt-6 border-t border-flat flex justify-center">
+          <div className="pt-6 flex justify-center">
             <button
               onClick={() => {
                 setExpandedStudy(null);

@@ -10,7 +10,7 @@ export interface RevealOrigin {
 
 const STORAGE_KEY = "theme";
 const FADE_CLASS = "theme-transition"; // fallback fade, see the CSS snippet in the setup notes
-const REVEAL_MS = 550;
+const REVEAL_MS = 300;
 const THEME_COLOR: Record<Theme, string> = { light: "#ffffff", dark: "#0a0a0a" }; // browser toolbar color on phones
 
 // One shared store, so the toggle button, the chatbot and anything else that calls useTheme() always agree.

@@ -10,23 +10,47 @@ interface CommandPaletteProps {
 
 export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        if (isOpen) onClose();
-        else {
-          // Open handled by parent or state
-        }
-      }
       if (e.key === 'Escape' && isOpen) {
         onClose();
+        return;
       }
+      if (!isOpen || (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'Enter')) {
+        return;
+      }
+
+      const results = document.querySelectorAll<HTMLElement>('[data-palette-result]');
+      if (!results.length) return;
+
+      if (e.key === 'Enter') {
+        if (activeIndex >= 0) {
+          e.preventDefault();
+          results[activeIndex]?.click();
+        }
+        return;
+      }
+
+      e.preventDefault();
+      setActiveIndex((current) => {
+        if (e.key === 'ArrowDown') return current < 0 ? 0 : (current + 1) % results.length;
+        return current < 0 ? results.length - 1 : (current - 1 + results.length) % results.length;
+      });
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [activeIndex, isOpen, onClose]);
+
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [query, isOpen]);
+
+  useEffect(() => {
+    if (activeIndex < 0) return;
+    document.querySelectorAll<HTMLElement>('[data-palette-result]')[activeIndex]?.focus();
+  }, [activeIndex]);
 
   if (!isOpen) return null;
 
@@ -100,8 +124,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                   return (
                     <button
                       key={sec.id}
+                      data-palette-result
+                      data-active={activeIndex === filteredSections.indexOf(sec)}
                       onClick={() => navigateTo(sec.id)}
-                      className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer focus:outline-none"
+                      className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer hover:bg-surface-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent data-[active=true]:bg-surface-subtle"
                     >
                       <div className="flex items-center gap-3">
                         <Icon className="w-4 h-4 text-muted group-hover:text-accent transition-colors" />
@@ -129,8 +155,10 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                 {filteredProjects.map((proj) => (
                   <button
                     key={proj.id}
+                    data-palette-result
+                    data-active={activeIndex === filteredSections.length + filteredProjects.indexOf(proj)}
                     onClick={() => navigateTo('projects')}
-                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer focus:outline-none"
+                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer hover:bg-surface-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent data-[active=true]:bg-surface-subtle"
                   >
                     <div>
                       <div className="text-sm font-medium text-primary group-hover:text-accent flex items-center gap-2">
@@ -169,11 +197,13 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose 
                 {filteredDeployments.map((deploy) => (
                   <a
                     key={deploy.id}
+                    data-palette-result
+                    data-active={activeIndex === filteredSections.length + filteredProjects.length + filteredDeployments.indexOf(deploy)}
                     href={deploy.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={onClose}
-                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer focus:outline-none"
+                    className="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-colors group cursor-pointer hover:bg-surface-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent data-[active=true]:bg-surface-subtle"
                   >
                     <div>
                       <div className="text-sm font-medium text-primary group-hover:text-accent flex items-center gap-2">

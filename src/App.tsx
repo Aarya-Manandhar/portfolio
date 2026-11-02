@@ -25,6 +25,18 @@ export function App() {
     initConsoleEasterEgg();
   }, []);
 
+  useEffect(() => {
+    const handlePaletteShortcut = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setIsCommandPaletteOpen((isOpen) => !isOpen);
+      }
+    };
+
+    window.addEventListener('keydown', handlePaletteShortcut);
+    return () => window.removeEventListener('keydown', handlePaletteShortcut);
+  }, []);
+
   return (
     <div className="min-h-screen bg-surface text-primary selection:bg-white selection:text-black relative">
       {/* Sticky Navigation */}
