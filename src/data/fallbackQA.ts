@@ -6,8 +6,26 @@ import { PERSONAL_INFO, PROJECTS, EDUCATION } from './portfolioData';
 export function getClientFallbackReply(query: string): string | null {
   const q = query.trim().toLowerCase();
 
+  // Handle greetings and casual conversation before broad portfolio keywords.
+  if (/^(hi+|hello|hey+|how are you\??|how's it going\??|what's up\??|khana khayo\??|khaana khayo\??|have you eaten\??|thanks?( you)?|thx|namaste)[!.?,\s]*$/i.test(q)) {
+    if (/how are you|how's it going|what's up/i.test(q)) {
+      return "I'm doing well, thanks for asking! I can help with Aarya's projects, skills, experience, or a job description. I'm an AI, so I don't eat, but I appreciate you asking!";
+    }
+    if (/khana|khaana|eaten/i.test(q)) {
+      return "I don't eat, but thanks for asking! I'm here to help with Aarya's projects, skills, or experience.";
+    }
+    return "Hi! I can help with Aarya's projects, skills, experience, or screening a job description against his background.";
+  }
 
-  if (/project|app|work|built|specsense|deadmanswitch|sajilogig|smart-tender|baa-ko-achar/i.test(q)) {
+  if (/(job\s*description|\bJD\b|screen\s+(this\s+)?(job|role)|match\s+(this\s+)?(job|role)|fit\s+for\s+(this|the)\s+(job|role)|resume\s+against)/i.test(q)) {
+    return "I can compare a job description with Aarya's experience. Paste the full description, and I'll summarize the strongest matches and any requirements that aren't clearly covered by his background.";
+  }
+
+  if (/qa\s*suite|playwright|postman|jest|regression|end[-\s]?to[-\s]?end|api\s+test/i.test(q)) {
+    return "Aarya built a QA Suite of end-to-end and API tests using Playwright, Postman collections, and Jest to catch regressions on critical user paths.";
+  }
+
+  if (/project|app|built|specsense|deadmanswitch|sajilogig|smart-tender|baa-ko-achar/i.test(q)) {
     const featuredList = PROJECTS.slice(0, 3).map((p) => p.name).join(', ');
     return `Aarya has built 8 projects including ${featuredList}. You can explore the full showcase below. [ACTION:navigate:projects]`;
   }

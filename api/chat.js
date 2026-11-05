@@ -183,6 +183,17 @@ const staticAnswer = (question) => {
   return ans ? adjustEducationContext(ans) : null;
 };
 
+function casualReply(question) {
+  const q = question.trim().toLowerCase().replace(/[.!?\s]+$/g, "");
+  if (/^(how are you|how's it going|what's up)$/.test(q)) {
+    return "I'm doing well, thanks for asking! I can help with Aarya's projects, skills, experience, or a job description. I'm an AI, so I don't eat, but I appreciate you asking!";
+  }
+  if (/^(khana khayo|khaana khayo|have you eaten)$/.test(q)) {
+    return "I don't eat, but thanks for asking! I'm here to help with Aarya's projects, skills, or experience.";
+  }
+  return "Hi! I can help with Aarya's projects, skills, experience, or screening a job description against his background.";
+}
+
 // ---- Generation: the only provider-specific code for the LLM ----
 async function callGemini(messages, systemPrompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
@@ -255,6 +266,10 @@ export default async function handler(req, res) {
   }
 
   const question = messages[messages.length - 1].content;
+  const isSmallTalk = /^\s*(hi+|hello|hey+|how are you\??|how's it going\??|what's up\??|khana khayo\??|khaana khayo\??|have you eaten\??|thanks?( you)?|thx|namaste|ok(ay)?|cool|great|nice|got it|bye|good (morning|afternoon|evening))[!.?,\s]*$/i.test(question);
+  if (isSmallTalk) {
+    return res.status(200).json({ reply: casualReply(question), source: "llm" });
+  }
   let chunks = null; // retrieved chunks (null = retrieval not used)
   let debug;
 
@@ -282,10 +297,8 @@ export default async function handler(req, res) {
         ((question.length < 40 && /\b(dark|light)\s*(mode|theme)\b/i.test(question)) ||
           /\b(toggle|switch|change)\s+(the\s+)?(site\s+)?theme\b/i.test(question) ||
           /\b(scroll|jump|go|take me|navigate|show me)\b.{0,30}\b(projects?|education|about|contact|case[- ]?study|specsense|section)\b/i.test(question));
-      const isSmallTalk = /^\s*(hi+|hello|hey|thanks?( you)?|thx|ok(ay)?|cool|great|nice|got it|bye|good (morning|afternoon|evening))\W*$/i.test(question);
-
       const relevant = hits.filter((h) => h.score >= MIN_SCORE);
-      if (relevant.length === 0 && !isJD && !isSiteCommand && !isSmallTalk) {
+      if (relevant.length === 0 && !isJD && !isSiteCommand) {
         // Nothing relevant: do NOT call the LLM (saves quota, prevents made-up answers)
         console.log(JSON.stringify({ q: question, source: "no-match", top: debug[0] }));
         return res.status(200).json({
