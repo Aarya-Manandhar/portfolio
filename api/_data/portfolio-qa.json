@@ -6,6 +6,7 @@
     "match_threshold_note": "If the best embedding match scores below your threshold, return the fallback answer instead of guessing."
   },
   "fallback": "I don't have that specific information right now. You can reach Aarya directly at hello@aaryamanandhar.com.np or connect via LinkedIn and GitHub in the Contact section. [ACTION:navigate:contact]",
+  "noMatch": "I couldn't find that information in Aarya's portfolio. I can help with his role, projects, skills, QA Suite, or experience.",
   "entries": [
     {
       "id": "about",

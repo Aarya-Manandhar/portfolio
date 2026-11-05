@@ -142,8 +142,7 @@ function Bubble({
   const isSavedAnswer =
     message.source === "retrieval" ||
     message.source === "static" ||
-    message.source === "fallback" ||
-    message.source === "no-match";
+    message.source === "fallback";
   const style = isUser ? ui.userBubble : message.isError ? ui.errorBubble : ui.botBubble;
 
   // Detect resume file provided in the answer

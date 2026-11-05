@@ -6,6 +6,10 @@ import { PERSONAL_INFO, PROJECTS, EDUCATION } from './portfolioData';
 export function getClientFallbackReply(query: string): string | null {
   const q = query.trim().toLowerCase();
 
+  if (/^(aarya|aaray|arya|aary)[!.?,\s]*$/i.test(q)) {
+    return "Hi! I'm Aarya's AI assistant. Ask me about his projects, skills, or experience.";
+  }
+
   // Handle greetings and casual conversation before broad portfolio keywords.
   if (/^(hi+|hello|hey+|how are you\??|how's it going\??|what's up\??|khana khayo\??|khaana khayo\??|have you eaten\??|thanks?( you)?|thx|namaste)[!.?,\s]*$/i.test(q)) {
     if (/how are you|how's it going|what's up/i.test(q)) {
@@ -79,5 +83,5 @@ export function getClientFallbackReply(query: string): string | null {
     return `Toggling portfolio theme now. [ACTION:theme:toggle]`;
   }
 
-  return `I don't have that specific detail right now. Feel free to explore his projects or reach out directly:\n\n📧 [${PERSONAL_INFO.displayEmail}](mailto:${PERSONAL_INFO.email}) · 🔗 [LinkedIn](${PERSONAL_INFO.linkedinUrl}) · 🐙 [GitHub](${PERSONAL_INFO.githubUrl}) [ACTION:navigate:contact]`;
+  return "I couldn't find that information in Aarya's portfolio. I can help with his role, projects, skills, QA Suite, or experience.";
 }
