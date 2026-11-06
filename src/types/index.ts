@@ -3,6 +3,7 @@ export interface Project {
   name: string;
   shortDesc: string;
   fullDesc?: string;
+  highlights?: string[];
   tech: string[];
   category: 'ai' | 'web3' | 'security' | 'fullstack' | 'platforms' | 'qa';
   githubUrl?: string;

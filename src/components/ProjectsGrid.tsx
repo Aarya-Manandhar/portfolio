@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   FolderGit2,
   ExternalLink,
@@ -12,6 +13,7 @@ import {
   ChevronDown,
   ChevronUp,
   Archive,
+  MessageSquareText,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { GithubIcon } from './Icons';
@@ -20,6 +22,7 @@ import { PROJECTS } from '../data/portfolioData';
 // Map icon names to Lucide icons
 const ICON_MAP: Record<string, LucideIcon> = {
   Sparkles: Sparkles,
+  MessageSquareText: MessageSquareText,
   ShieldLock: Shield,
   Briefcase: Briefcase,
   ShoppingBag: ShoppingBag,
@@ -32,10 +35,95 @@ const ICON_MAP: Record<string, LucideIcon> = {
 const EARLIER_PROJECT_IDS = new Set(['console-game', 'baa-ko-achar']);
 
 type FilterId = 'all' | 'ai' | 'web3' | 'platforms' | 'qa' | 'fullstack';
+type PopupPosition = { top: number; left: number; width: number };
 
 export const ProjectsGrid: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<FilterId>('all');
   const [showEarlier, setShowEarlier] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<(typeof PROJECTS)[number] | null>(null);
+  const [popupAnchor, setPopupAnchor] = useState<HTMLElement | null>(null);
+  const [popupPosition, setPopupPosition] = useState<PopupPosition | null>(null);
+  const popupRef = useRef<HTMLElement>(null);
+
+  const dismissPopup = useCallback((restoreFocus = false) => {
+    const anchor = popupAnchor;
+    setSelectedProject(null);
+    setPopupAnchor(null);
+    setPopupPosition(null);
+    if (restoreFocus) anchor?.focus();
+  }, [popupAnchor]);
+
+  useEffect(() => {
+    if (!selectedProject || !popupAnchor) return;
+    const updatePosition = () => {
+      if (!popupAnchor.isConnected) {
+        dismissPopup();
+        return;
+      }
+
+      const rect = popupAnchor.getBoundingClientRect();
+      const width = Math.min(544, window.innerWidth - 32);
+      const height = Math.min(520, window.innerHeight - 32);
+      const left = Math.min(
+        Math.max(16, rect.left + rect.width / 2 - width / 2),
+        window.innerWidth - width - 16,
+      );
+      const below = window.innerHeight - rect.bottom - 16;
+      const above = rect.top - 16;
+      const top = below >= height
+        ? rect.bottom + 12
+        : above >= height
+          ? rect.top - height - 12
+          : Math.min(Math.max(16, rect.bottom + 12), window.innerHeight - height - 16);
+      setPopupPosition({ top, left, width });
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') dismissPopup(true);
+    };
+    const handleOutsidePointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (popupRef.current?.contains(target) || popupAnchor.contains(target)) return;
+      dismissPopup();
+    };
+    const handlePageScroll = () => dismissPopup();
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', handlePageScroll, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('pointerdown', handleOutsidePointerDown);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', handlePageScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('pointerdown', handleOutsidePointerDown);
+    };
+  }, [selectedProject, popupAnchor, dismissPopup]);
+
+  const openProject = (project: (typeof PROJECTS)[number], anchor: HTMLElement) => {
+    if (selectedProject?.id === project.id) {
+      setSelectedProject(null);
+      setPopupAnchor(null);
+      setPopupPosition(null);
+      return;
+    }
+    setSelectedProject(project);
+    setPopupAnchor(anchor);
+  };
+
+  const closeProject = () => {
+    dismissPopup(true);
+  };
+
+  const handleCardKeyDown = (event: React.KeyboardEvent<HTMLDivElement>, project: (typeof PROJECTS)[number]) => {
+    if (event.target !== event.currentTarget) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openProject(project, event.currentTarget);
+    }
+  };
 
   const filters: { id: FilterId; label: string }[] = [
     { id: 'all', label: 'All Projects' },
@@ -80,12 +168,94 @@ export const ProjectsGrid: React.FC = () => {
     }
   };
 
-  const ProjectCard = ({ project }: { project: (typeof PROJECTS)[0] }) => {
+  const renderProjectDetails = (project: (typeof PROJECTS)[number]) => (
+    <section
+      ref={popupRef}
+      className="project-detail-popover fixed z-[60] max-h-[min(520px,calc(100dvh-2rem))] overflow-y-auto rounded-2xl border border-flat bg-surface p-5 md:p-6"
+      style={popupPosition ? { top: popupPosition.top, left: popupPosition.left, width: popupPosition.width } : undefined}
+      role="dialog"
+      aria-modal="false"
+      aria-labelledby={`project-details-title-${project.id}`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <span className="text-[10px] font-mono-code font-semibold tracking-wider text-muted">
+            {getCategoryBadgeLabel(project.category)}
+          </span>
+          <h4 id={`project-details-title-${project.id}`} className="mt-1 text-base font-bold text-primary">
+            {project.name}
+          </h4>
+        </div>
+        <button
+          type="button"
+          onClick={closeProject}
+          className="shrink-0 rounded-lg px-2.5 py-1 text-xs text-muted hover:bg-surface hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+          aria-label={`Close ${project.name} details`}
+        >
+          Close
+        </button>
+      </div>
+
+      <p className="mt-4 text-sm leading-relaxed text-secondary">
+        {project.fullDesc || project.shortDesc}
+      </p>
+
+      {project.highlights && project.highlights.length > 0 && (
+        <div className="mt-5">
+          <h5 className="text-[11px] font-semibold uppercase tracking-wider text-muted">Key highlights</h5>
+          <ul className="mt-2.5 space-y-2">
+            {project.highlights.map((highlight) => (
+              <li key={highlight} className="flex items-start gap-2.5 text-sm leading-relaxed text-secondary">
+                <span className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {(project.githubUrl || project.liveUrl) && (
+        <div className="mt-5 flex flex-wrap gap-2">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              className="rounded-lg bg-surface px-3 py-2 text-xs font-medium text-primary hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+            >
+              View on GitHub <ExternalLink className="ml-1 inline h-3 w-3" />
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target={project.liveUrl.startsWith('#') ? '_self' : '_blank'}
+              rel="noopener noreferrer"
+              onClick={(event) => event.stopPropagation()}
+              className="rounded-lg bg-primary px-3 py-2 text-xs font-medium text-surface hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+            >
+              Live project <ExternalLink className="ml-1 inline h-3 w-3" />
+            </a>
+          )}
+        </div>
+      )}
+    </section>
+  );
+
+  const renderProjectCard = (project: (typeof PROJECTS)[0]) => {
     const IconComponent = ICON_MAP[project.iconName] || FolderGit2;
+    const isExpanded = selectedProject?.id === project.id;
     return (
       <div
         key={project.id}
-        className="group rounded-2xl bg-surface p-6 flex flex-col justify-between space-y-4 transition-all duration-200"
+        role="button"
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-controls={isExpanded ? `project-details-title-${project.id}` : undefined}
+        onClick={(event) => openProject(project, event.currentTarget)}
+        onKeyDown={(event) => handleCardKeyDown(event, project)}
+        className="group rounded-2xl bg-surface p-6 flex flex-col justify-between space-y-4 transition-all duration-200 cursor-pointer hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
       >
         <div className="space-y-3">
           {/* Header: Icon, Title & Links */}
@@ -119,6 +289,7 @@ export const ProjectsGrid: React.FC = () => {
                   className="p-2 rounded-lg text-muted hover:text-primary hover:bg-surface-subtle transition-colors"
                   title="View Source on GitHub"
                   aria-label={`View ${project.name} on GitHub`}
+                  onClick={(event) => event.stopPropagation()}
                 >
                   <GithubIcon className="w-4 h-4" />
                 </a>
@@ -131,6 +302,7 @@ export const ProjectsGrid: React.FC = () => {
                   className="px-2.5 py-1 rounded-lg bg-surface-subtle text-primary hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 border border-transparent hover:border-accent transition-all flex items-center gap-1 text-xs font-medium"
                   title="View Live Project / Deployment"
                   aria-label={`View Live Demo of ${project.name}`}
+                  onClick={(event) => event.stopPropagation()}
                 >
                   <span>Live</span>
                   <ExternalLink className="w-3 h-3" />
@@ -156,6 +328,7 @@ export const ProjectsGrid: React.FC = () => {
             </span>
           ))}
         </div>
+
       </div>
     );
   };
@@ -171,6 +344,7 @@ export const ProjectsGrid: React.FC = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-primary tracking-tight">
             Projects & Experiments
           </h2>
+          <p className="text-xs text-muted">Select a project to expand its description and key highlights.</p>
         </div>
 
         {/* Filter Pills — updated taxonomy */}
@@ -193,9 +367,7 @@ export const ProjectsGrid: React.FC = () => {
       {/* Primary 2-Column Projects Grid */}
       {filteredPrimary.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredPrimary.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+          {filteredPrimary.map((project) => renderProjectCard(project))}
         </div>
       ) : (
         <div className="py-12 text-center text-muted text-sm">
@@ -222,9 +394,18 @@ export const ProjectsGrid: React.FC = () => {
           </button>
 
           {showEarlier && (
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 opacity-70">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
               {(selectedFilter === 'all' ? earlierProjects : filteredEarlier).map((project) => (
-                <div key={project.id} className="rounded-2xl bg-surface-subtle p-5 flex flex-col justify-between space-y-3 transition-all duration-200 hover:opacity-90">
+                <div
+                  key={project.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={selectedProject?.id === project.id}
+                  aria-controls={selectedProject?.id === project.id ? `project-details-title-${project.id}` : undefined}
+                  onClick={(event) => openProject(project, event.currentTarget)}
+                  onKeyDown={(event) => handleCardKeyDown(event, project)}
+                  className="rounded-2xl bg-surface-subtle p-5 flex flex-col justify-between space-y-3 transition-all duration-200 hover:opacity-90 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                >
                   <div className="space-y-2">
                     <div className="flex items-start justify-between gap-3">
                       <div>
@@ -240,6 +421,7 @@ export const ProjectsGrid: React.FC = () => {
                           rel="noopener noreferrer"
                           className="p-1.5 rounded-lg text-muted hover:text-accent hover:bg-surface transition-colors"
                           aria-label={`View ${project.name} on GitHub`}
+                          onClick={(event) => event.stopPropagation()}
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>
@@ -265,6 +447,9 @@ export const ProjectsGrid: React.FC = () => {
           )}
         </div>
       )}
+
+      {selectedProject && popupPosition && createPortal(renderProjectDetails(selectedProject), document.body)}
+
     </section>
   );
 };

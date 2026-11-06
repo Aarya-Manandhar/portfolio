@@ -54,9 +54,8 @@ export const Education: React.FC = () => {
                 className="group flex items-start gap-3 p-3.5 rounded-xl bg-surface hover:bg-surface-subtle transition-colors duration-150"
               >
                 <ArrowRight className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5 opacity-60 group-hover:opacity-100 transition-opacity" />
-                <div>
+                <div className="grid min-w-0 flex-1 grid-cols-1 gap-y-1 sm:grid-cols-[minmax(190px,0.85fr)_minmax(0,1.6fr)] sm:gap-x-4">
                   <span className="text-xs font-semibold text-primary">{item.subject}</span>
-                  <span className="text-muted mx-2 text-xs">·</span>
                   <span className="text-xs text-secondary">{item.relevance}</span>
                 </div>
               </div>
