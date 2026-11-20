@@ -5,8 +5,8 @@
     "style": "third person, short answers, only facts from the portfolio",
     "match_threshold_note": "If the best embedding match scores below your threshold, return the fallback answer instead of guessing."
   },
-  "fallback": "I don't have that specific information right now. You can reach Aarya directly at hello@aaryamanandhar.com.np or connect via LinkedIn and GitHub in the Contact section. [ACTION:navigate:contact]",
-  "noMatch": "I couldn't find that information in Aarya's portfolio. I can help with his role, projects, skills, QA Suite, or experience.",
+  "fallback": "I don't have that specific information right now. You can reach Aarya directly at hello@aaryamanandhar.com.np or connect via LinkedIn and GitHub in the Contact section.",
+  "noMatch": "That doesn't seem to be about Aarya's work. I can help with his projects, skills, tech stack, QA suite, or experience — just ask!",
   "entries": [
     {
       "id": "about",
@@ -267,6 +267,17 @@
         "show me your resume"
       ],
       "answer": "You can view and download Aarya's full CV / Resume directly here: [Download Resume (PDF)](/resume.pdf). You can also reach him at hello@aaryamanandhar.com.np for inquiries and opportunities. [ACTION:navigate:contact]"
+    },
+    {
+      "id": "nabil_bank",
+      "questions": [
+        "what does Aarya do at Nabil Bank",
+        "Nabil Bank internship",
+        "what is his work at Nabil",
+        "AI Developer Intern responsibilities",
+        "tell me about his internship"
+      ],
+      "answer": "As an AI Developer Intern at Nabil Bank, Aarya works on internal AI tooling and automation for the bank's digital services. His work involves building and integrating language-model-based systems into banking workflows, applying the same full-stack and API skills he developed in his personal projects to a production enterprise environment."
     },
     {
       "id": "github",

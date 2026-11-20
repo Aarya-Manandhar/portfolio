@@ -4,7 +4,8 @@
 //
 // source tells you which path produced the answer:
 //   "rag"        retrieved the top chunks, then Gemini wrote the answer from them  (best)
-//   "llm"        no vector index available (or a short command / small talk), Gemini answered from ALL content
+//   "llm"        no vector index available (or a short command), Gemini answered from ALL content;
+//                also used for canned small-talk replies (no Gemini call)
 //   "retrieval"  Gemini failed, so we returned the best retrieved chunk as-is
 //   "static"     retrieval + Gemini both failed, so Fuse.js matched your Q&A phrasings
 //   "no-match"   nothing in your content is close to the question, so Gemini was NOT called
@@ -90,13 +91,15 @@ const PORTFOLIO_ANCHOR_WORDS = new Set(`tech stack work project role position ed
 const QUESTION_STOP_WORDS = new Set(`a an the and or but is are was were be been being do does did have has had can could would should will what when where why who whom which how about tell me my your you he she his her they them this that these those it its of for to from in on at with by as i we us please know`.split(" "));
 const index = loadIndex(); // null until you run scripts/build-embeddings.mjs
 
+// A cheap first filter that runs BEFORE any API call: is this question plausibly about Aarya at all?
 function hasPortfolioAnchor(text) {
+  // Anything that refers to him ("does he know Kubernetes?", "his salary", "about him") is about Aarya,
+  // even when it names a skill or topic that is not in the content. The model then says "not listed".
+  if (/\b(aarya|he|his|him|himself|candidate)\b/i.test(text)) return true;
   const terms = (text.toLowerCase().match(/[a-z0-9]+/g) ?? [])
     .filter((term) => term.length > 2 && !QUESTION_STOP_WORDS.has(term));
-  if (!terms.length) return true;
-  if (terms.some((term) => CONTEXT_WORDS.has(term) || PORTFOLIO_ANCHOR_WORDS.has(term))) return true;
-  // Questions with no meaningful words are likely follow-ups such as "why?"; keep those eligible.
-  return terms.length === 0;
+  if (!terms.length) return true; // no meaningful words: likely a follow-up such as "why?"
+  return terms.some((term) => CONTEXT_WORDS.has(term) || PORTFOLIO_ANCHOR_WORDS.has(term));
 }
 
 // ---- Link safety ----
@@ -196,10 +199,20 @@ const staticAnswer = (question) => {
   return ans ? adjustEducationContext(ans) : null;
 };
 
+// Canned replies for greetings and thanks: instant, and they use no Gemini quota.
 function casualReply(question) {
-  const q = question.trim().toLowerCase().replace(/[.!?\s]+$/g, "");
+  const q = question.trim().toLowerCase().replace(/[.!?,\s]+$/g, "");
+  if (/^(thanks?( you)?|thx)$/.test(q)) {
+    return "You're welcome! Ask me anything about Aarya's projects, skills or experience.";
+  }
+  if (/^bye$/.test(q)) {
+    return "Goodbye! Come back any time with questions about Aarya's projects, skills or experience.";
+  }
+  if (/^(ok(ay)?|cool|great|nice|got it)$/.test(q)) {
+    return "Great! Let me know if you'd like to know more about Aarya's projects, skills or experience.";
+  }
   if (/^(how are you|how's it going|what's up)$/.test(q)) {
-    return "I'm doing well, thanks for asking! I can help with Aarya's projects, skills, experience, or a job description. I'm an AI, so I don't eat, but I appreciate you asking!";
+    return "I'm doing well, thanks for asking! I can help with Aarya's projects, skills, experience, or a job description.";
   }
   if (/^(khana khayo|khaana khayo|have you eaten)$/.test(q)) {
     return "I don't eat, but thanks for asking! I'm here to help with Aarya's projects, skills, or experience.";
@@ -282,18 +295,32 @@ export default async function handler(req, res) {
   }
 
   const question = messages[messages.length - 1].content;
-  const isSmallTalk = /^\s*(aarya|hi+|hello|hey+|how are you\??|how's it going\??|what's up\??|khana khayo\??|khaana khayo\??|have you eaten\??|thanks?( you)?|thx|namaste|ok(ay)?|cool|great|nice|got it|bye|good (morning|afternoon|evening))[!.?,\s]*$/i.test(question);
+
+  // Greetings and thanks: canned reply, no API call.
+  const isSmallTalk = /^\s*(aarya|hi+( there)?|hello( there)?|hey+( there)?|how are you\??|how's it going\??|what's up\??|khana khayo\??|khaana khayo\??|have you eaten\??|thanks?( you)?|thx|namaste|ok(ay)?|cool|great|nice|got it|bye|good (morning|afternoon|evening))[!.?,\s]*$/i.test(question);
   if (isSmallTalk) {
     return res.status(200).json({ reply: casualReply(question), source: "llm" });
   }
-  const isJDRequest = /(job\s*description|\bJD\b|fit\s+for\s+(this|the|a)\s+(role|job|position)|match\s+score)/i.test(question);
-  const isSiteRequest = /\b(toggle|switch|change)\s+(the\s+)?(site\s+)?theme\b|\b(scroll|jump|go|take me|navigate|show me)\b.{0,30}\b(projects?|education|about|contact|case[- ]?study|specsense|section)\b/i.test(question);
-  if (!isJDRequest && !isSiteRequest && !hasPortfolioAnchor(question)) {
+
+  // Pasted job descriptions and short site commands are never "about Aarya's content",
+  // so they skip both the cheap anchor check and the relevance filter below.
+  const isJD =
+    (question.length > 300 && /(requirements|responsibilities|qualifications|looking\s*for|candidate|job\s*description)/i.test(question)) ||
+    /(job\s*description|\bJD\b|(good\s*)?fit\s*for\s*(this|the|a)\s*(role|job|position)|match\s*score)/i.test(question);
+  const isSiteCommand =
+    question.length < 80 &&
+    ((question.length < 40 && /\b(dark|light)\s*(mode|theme)\b/i.test(question)) ||
+      /\b(toggle|switch|change)\s+(the\s+)?(site\s+)?theme\b/i.test(question) ||
+      /\b(scroll|jump|go|take me|navigate|show me)\b.{0,30}\b(projects?|education|about|contact|case[- ]?study|specsense|section)\b/i.test(question));
+
+  // Cheap first filter: obviously unrelated questions are answered without any API call.
+  if (!isJD && !isSiteCommand && !hasPortfolioAnchor(question)) {
     return res.status(200).json({
       reply: qa.noMatch ?? qa.fallback,
       source: "no-match",
     });
   }
+
   let chunks = null; // retrieved chunks (null = retrieval not used)
   let debug;
 
@@ -311,16 +338,6 @@ export default async function handler(req, res) {
       const hits = search(queryVector, index, TOP_K);
       debug = hits.map((h) => ({ id: h.id, score: Number(h.score.toFixed(3)) }));
 
-      // Only a pasted job description (long text with JD wording) or an explicit fit question skips the relevance filter.
-      const isJD =
-        (question.length > 300 && /(requirements|responsibilities|qualifications|looking\s*for|candidate|job\s*description)/i.test(question)) ||
-        /(job\s*description|(good\s*)?fit\s*for\s*(this|the|a)\s*(role|job|position)|match\s*score)/i.test(question);
-      // Short site commands and small talk are never "about Aarya's content", so they skip the relevance filter too.
-      const isSiteCommand =
-        question.length < 80 &&
-        ((question.length < 40 && /\b(dark|light)\s*(mode|theme)\b/i.test(question)) ||
-          /\b(toggle|switch|change)\s+(the\s+)?(site\s+)?theme\b/i.test(question) ||
-          /\b(scroll|jump|go|take me|navigate|show me)\b.{0,30}\b(projects?|education|about|contact|case[- ]?study|specsense|section)\b/i.test(question));
       const relevant = hits.filter((h) => h.score >= MIN_SCORE);
       if (relevant.length === 0 && !isJD && !isSiteCommand) {
         // Nothing relevant: do NOT call the LLM (saves quota, prevents made-up answers)
