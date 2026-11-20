@@ -71,7 +71,10 @@ function parseAction(text: string, userPrompt = ""): { cleanedText: string; acti
   if (match) {
     const type = match[1].toLowerCase() as "navigate" | "theme";
     const target = match[2]?.trim() || "";
-    const cleanedText = text.replace(/\[ACTION:[^\]]+\]/gi, "").trim();
+    let cleanedText = text.replace(/\[ACTION:[^\]]+\]/gi, "").trim();
+    if (!cleanedText) {
+      cleanedText = type === "theme" ? "Theme toggled." : `Navigated to ${target || "section"}.`;
+    }
     return { cleanedText, action: { type, target } };
   }
 

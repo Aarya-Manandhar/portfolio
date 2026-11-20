@@ -13,6 +13,7 @@ interface ChatWidgetProps {
 const SUGGESTIONS = [
   "Take me to his projects",
   "What is his tech stack?",
+  "Toggle dark mode",
   "Tell me about Aarya",
   "How can I contact him?",
 ];
@@ -301,6 +302,10 @@ export default function ChatWidget({ onToggleDarkMode }: ChatWidgetProps) {
   }, [messages, onToggleDarkMode]);
 
   const handleSuggestion = (question: string) => {
+    if (/dark|theme|light/i.test(question)) {
+      onToggleDarkMode?.();
+      return;
+    }
     if (/projects/i.test(question)) {
       triggerScroll("projects");
     } else if (/specsense|case\s*study/i.test(question)) {
